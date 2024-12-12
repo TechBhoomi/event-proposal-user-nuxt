@@ -1,10 +1,10 @@
 <template>
   <div class="p-2">
     <section>
-      <h1 class="text-3xl font-bold">Curriculum</h1>
+      <h1 class="lg:text-3xl text-xl font-bold">Curriculum</h1>
     </section>
     <article class="rounded-md bg-[#FFE6C7] pt-2 pb-4">
-      <h2 class="font-bold text-2xl w-full text-center p-2">
+      <h2 class="font-bold text-base w-full text-center p-2">
         Software Testing With Java Automation <span>-3 Months</span>
       </h2>
       <section class="lg:grid grid-cols-3 gap-2 p-2">
@@ -98,7 +98,7 @@ const modules = reactive([
   },
 ]);
 const headingStyles = computed(() => {
-  return "p-2 font-bold text-xl bg-[#FF8343] rounded-sm text-[#FFFF]";
+  return "p-2 font-bold text-base bg-[#FF8343] rounded-sm text-[#FFFF]";
 });
 const courseBlock = computed(
   () =>
