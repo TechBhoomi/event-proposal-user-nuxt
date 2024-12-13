@@ -4,6 +4,9 @@
     <Description />
     <Curiculum />
     <UpcomingBatch />
+    <PlacementStats />
+    <PlacementActivity />
+    <OtherCoursesAndBranches />
     <Footer />
   </section>
 </template>
