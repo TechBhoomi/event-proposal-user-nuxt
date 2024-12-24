@@ -61,28 +61,15 @@
     <!-- Mobile Menu -->
     <div
       v-if="isMenuOpen"
-      class="lg:hidden bg-[#EEEEEE] absolute right-0 w-full"
+      class="lg:hidden bg-[#EEEEEE] absolute right-0 w-full z-[99]"
     >
       <div class="px-2 pt-2 pb-3 space-y-1">
         <a
+          v-for="(menu, index) in menuItems"
+          :key="index"
           href="#"
           class="block hover:bg-blue-500 px-3 py-2 rounded-md text-base font-medium"
-          >Home</a
-        >
-        <a
-          href="#"
-          class="block hover:bg-blue-500 px-3 py-2 rounded-md text-base font-medium"
-          >About</a
-        >
-        <a
-          href="#"
-          class="block hover:bg-blue-500 px-3 py-2 rounded-md text-base font-medium"
-          >Services</a
-        >
-        <a
-          href="#"
-          class="block hover:bg-blue-500 px-3 py-2 rounded-md text-base font-medium"
-          >Contact</a
+          >{{ menu }}</a
         >
       </div>
     </div>
@@ -92,7 +79,9 @@
 import { ref } from "vue";
 
 const isMenuOpen = ref(false);
-
+defineProps({
+  menuItems: { default: [] },
+});
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
