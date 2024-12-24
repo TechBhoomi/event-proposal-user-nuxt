@@ -1,11 +1,7 @@
 <!-- layouts/default.vue -->
 <template>
   <div>
-    <header class="sticky top-0">
-      <NavHeader />
-      <Navbar />
-    </header>
-    <!-- <nuxt /> -->
+    <nuxt />
     <slot />
     <!-- <footer class="w-full"> -->
     <!-- </footer> -->
