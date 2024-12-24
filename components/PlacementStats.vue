@@ -16,7 +16,7 @@
         <h2 class="lg:text-lg font-semibold text-sm">1000+ Tie Ups</h2>
         <h2>
           <a href="" class="text-blue-500 lg:text-base underline underline-offset-4 text-sm"
-            >Click here to know more</a
+          >Click here to know more</a
           >
         </h2>
       </section>
