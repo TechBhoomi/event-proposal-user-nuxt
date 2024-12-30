@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Navigation } from "vue3-carousel";
 
@@ -25,10 +25,48 @@ const images = ref([
           />
         </div>
       </Slide>
-      <!-- <template #addons>
-        <Navigation class="z-50 absolute" />
-      </template> -->
+   
     </Carousel>
   </div>
 </template>
+<style scoped></style> -->
+
+
+<script setup>
+import "vue3-carousel/dist/carousel.css";
+import { Carousel as VueCarousel, Slide } from "vue3-carousel";
+
+// Props to accept images dynamically
+defineProps({
+  images: {
+    type: Array,
+    required: true,
+  },
+});
+
+const config = {
+  autoplay: 2000,
+  wrapAround: true,
+  pauseAutoplayOnHover: true,
+};
+</script>
+
+<template>
+  <div class="carousel-container relative -z-10">
+    <VueCarousel v-bind="config">
+      <Slide v-for="(image, index) in images" :key="index">
+        <div class="carousel__item relative w-full">
+          <img
+            :src="`https://gotest.qspiders.com/api/v1/get_image?name=${image}`"
+            alt="Slide Image"
+            class="carousel-image lg:h-[80vh] h-[50vh] w-full object-cover"
+          />
+        </div>
+      </Slide>
+    </VueCarousel>
+  </div>
+</template>
+
 <style scoped></style>
+
+
