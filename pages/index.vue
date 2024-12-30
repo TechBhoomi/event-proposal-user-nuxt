@@ -1,13 +1,9 @@
-<template>
-  <section>
-    <CoverImage />
-    <Description />
-    <Curiculum />
-    <UpcomingBatch />
-    <Footer />
-  </section>
-</template>
+<!-- pages/index.vue -->
+<script setup>
+import { useRouter } from "vue-router";
 
-<script setup></script>
+const router = useRouter();
+const defaultUuid = "enter-valid-uuid"; // Replace with your default UUID
 
-<style scoped></style>
+router.push(`/${defaultUuid}`);
+</script>
