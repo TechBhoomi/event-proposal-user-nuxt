@@ -30,31 +30,38 @@
       </section>
     </section>
     <!--!IDLE STATE -->
+   
     <article v-else>
       <section v-for="component in sortedElements" :key="component.id">
         <!--! NAVBAR -->
+         {{ console.log("component",component) }}
         <div v-if="component.name == 'navbar'">
           <header class="sticky top-0">
             <NavHeader
               title="Qspiders"
               tagline="Qspiders Training Institution | Enquiry Course Proposal | 26 Nov 2024"
             />
-            <Navbar :menuItems="component.details" />
+            <!-- <Navbar :menuItems="component.details" /> -->
+              <Navbar :menuItems="component.details.map(item => item.data)" />
           </header>
         </div>
         <!--!CAROUSAL-->
-        <div v-if="component.name == 'carousel'">
-          <Carousel />
+        <div v-if="component.name === 'carousel'">
+          <Carousel :images="component.details.map((item) => item.data)" />
+        </div>
+        <div>
+            <Curiculum />
         </div>
         <!--! COVER IMAGE -->
-        <div v-else-if="component.name == 'cover_image'">
+        <!-- <div v-else-if="component.name == 'cover_image'">
           <CoverImage :coverImage="component.details.data" />
-        </div>
-        <div v-else-if="component.name == 'location'">
+        </div> -->
+        <!-- <div v-else-if="component.name == 'location'">
           <Footer />
-        </div>
+        </div> -->
+       
         <!-- 
-      <Description />
+     
       <Curiculum />
       <UpcomingBatch />
       <PlacementStats />
