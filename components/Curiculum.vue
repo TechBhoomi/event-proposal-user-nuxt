@@ -1,10 +1,11 @@
 <template>
   <div class="p-2">
+    <iframe id="pdf" />
     <section>
-      <h1 class="text-3xl font-bold">Curriculum</h1>
+      <h1 class="lg:text-3xl text-xl font-bold">Curriculum</h1>
     </section>
     <article class="rounded-md bg-[#FFE6C7] pt-2 pb-4">
-      <h2 class="font-bold text-2xl w-full text-center p-2">
+      <h2 class="font-bold text-base w-full text-center p-2">
         Software Testing With Java Automation <span>-3 Months</span>
       </h2>
       <section class="lg:grid grid-cols-3 gap-2 p-2">
@@ -12,35 +13,46 @@
           <h2 :class="headingStyles">Subjects Covered</h2>
           <div :class="courseBlock">
             <ul>
-              <li v-for="sub in subjects" :key="sub">{{ sub }}</li>
+              <li
+                v-for="sub in courseData"
+                :key="sub"
+                @click="getCourseID(sub)"
+                class="hover:font-semibold cursor-pointer"
+              >
+                {{ sub?.title }}
+              </li>
             </ul>
           </div>
         </div>
         <div class="border-2 rounded-lg overflow-hidden bg-[#fff]">
           <h2 :class="headingStyles">Modules</h2>
-          <div>
+          <div v-if="courseByID && courseByID.length > 0">
             <div :class="courseBlock" class="module_block">
-              <div v-for="module in modules" :key="module">
+              <div v-for="module in courseByID[0]?.topics" :key="module">
                 <h3 class="font-semibold underline underline-offset-2">
-                  {{ module.module }}
+                  {{ module?.name }}
                 </h3>
                 <ul class="pl-7">
                   <li
-                    v-for="sub in module.subject"
+                    v-for="sub in module?.subtopics"
                     :key="sub"
                     class="font-normal topics"
                   >
-                    {{ sub }}
+                    {{ sub?.name }}
                   </li>
                 </ul>
               </div>
             </div>
             <div>
-              <button class="w-full bg-[#6EACDA] p-1 rounded-md">
+              <button
+                class="w-full bg-[#6EACDA] p-1 rounded-md"
+                @click="generateAndDownloadPDF(courseByID[0]?.topics)"
+              >
                 Download Pdf
               </button>
             </div>
           </div>
+          <div v-else class="text-red-600 text-center">No Data Found</div>
         </div>
         <div class="border-2 rounded-lg overflow-hidden bg-[#fff]">
           <h2 :class="headingStyles">Testimonials</h2>
@@ -65,45 +77,94 @@
 
 <script setup>
 import { ref, reactive } from "vue";
-let subjects = reactive([
-  "Manual Testing",
-  "Database SQL",
-  "JAVA",
-  "Selanium",
-  "Aptitude",
-  "Spoken English",
+import { useGlobalStore } from "~/store/globalStore";
+import { useNuxtApp } from "#app";
+
+const { $pdf } = useNuxtApp();
+
+const jsonData = ref([
+  { title: "Item 1", description: "Description for item 1" },
+  { title: "Item 2", description: "Description for item 2" },
+  // Add more data as needed
 ]);
-const modules = reactive([
-  {
-    module: "Basic Concepts",
-    subject: [
-      "Variables and Data Types",
-      "Constants",
-      "Input and Output",
-      "Comments",
-      "Syntax and Semantics",
-    ],
-  },
-  {
-    module: " Data Structures",
-    subject: [
-      "Arrays",
-      "Strings",
-      "Lists",
-      "Stacks and Queues",
-      "Dictionaries/HashMaps",
-      "Sets",
-      "Trees and Graphs (Advanced)",
-    ],
-  },
-]);
+
+const generateAndDownloadPDF = async subjects => {
+  console.log(subjects);
+  try {
+    // Initialize a new PDF document
+    $pdf.new({
+      margins: { top: 20, bottom: 20, left: 20, right: 20 },
+      size: "A4",
+    });
+
+    subjects.forEach(item => {
+      console.log(item, "item");
+      // Create an array for the main topic
+      const mainTopic = [
+        { raw: item.name, text: { fontSize: 25, fontWeight: "bold" } },
+      ];
+      // Map subtopics to an array of PDF entries
+      const subtopics =
+        item?.subtopics.length > 0 &&
+        item?.subtopics?.map(subtopic => ({
+          raw: subtopic.name,
+          text: { fontSize: 16, fontWeight: "semiBold" },
+        }));
+
+      const spaces = [{ raw: "\n\n" }];
+      // Combine main topic and subtopics
+      const pdfEntries = [...mainTopic, ...subtopics, ...spaces];
+      console.log(pdfEntries, "pdfEntries");
+
+      // Add the combined entries to the PDF
+      $pdf.add(pdfEntries);
+    });
+
+    // Generate the PDF and obtain the Blob URL
+    const blobUrl = await $pdf.run({
+      type: "client",
+      clientEmit: "blob",
+    });
+
+    // Create a temporary link to trigger the download
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    link.download = "custom_document.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+  }
+};
+
 const headingStyles = computed(() => {
-  return "p-2 font-bold text-xl bg-[#FF8343] rounded-sm text-[#FFFF]";
+  return "p-2 font-bold text-base bg-[#FF8343] rounded-sm text-[#FFFF]";
 });
 const courseBlock = computed(
   () =>
     "h-[32vh] sm:h-[40vh] md:h-[40vh] xs:h-[40vh] overflow-auto p-2 bg-[#fff]"
 );
+
+const STORE = useGlobalStore();
+const {
+  isCouseDataLoading,
+  hasCourseApiError,
+  courseData,
+  courseByID,
+  getCourseByIdLoading,
+  hasCourseByIdError,
+} = storeToRefs(STORE);
+const courseSubjects = computed(() => {
+  return courseData;
+});
+
+onBeforeMount(async () => {
+  await STORE.getCourse();
+});
+const getCourseID = async course => {
+  await STORE.getCourseById(course?.courseResponseId);
+};
 </script>
 
 <style scoped>
@@ -120,7 +181,7 @@ const courseBlock = computed(
 }
 
 .module_block::-webkit-scrollbar-thumb {
-  background: #B2B2B2; /* Blue scrollbar thumb */
+  background: #b2b2b2; /* Blue scrollbar thumb */
   border-radius: 10px;
 }
 

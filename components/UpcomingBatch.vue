@@ -1,7 +1,7 @@
 <template>
-  <div class="pb-3">
+  <div class="p-2">
     <section>
-      <h1 class="text-3xl font-bold">Upcoming Batch</h1>
+      <h1 class="lg:text-3xl text-xl font-bold">Upcoming Batch</h1>
     </section>
     <div class="shadow-md rounded-lg overflow-auto">
       <table class="w-full text-left">

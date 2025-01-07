@@ -3,13 +3,9 @@
     <div
       class="w-full object-cover bg-slate-400 sm:h-72 md:h-[40vh] lg:h-[70vh] xl:h[70vh] 2xl:h-[70vh] overflow-clip"
     >
-      <img
-        src="https://cdn.pixabay.com/photo/2020/01/23/17/58/lion-4788378_960_720.jpg"
-        alt=""
-        class="w-full"
-      />
+      <img :src="coverImage" alt="" class="w-full" />
     </div>
-    <div class="lg:flex items-center justify-between gap-2 p-2">
+    <!-- <div class="lg:flex items-center justify-between gap-2 p-2">
       <section
         class="font-bold text-[#F96E2A] text-2xl basis-[10%] flex items-center lg:justify-center justify-start"
       >
@@ -31,13 +27,14 @@
         Quidem, dicta nulla? Itaque fugiat dicta corrupti, laboriosam ad quos
         expedita minus labore
       </section>
-    </div>
+    </div> -->
   </section>
 </template>
 
 <script setup>
-import { ref } from "vue";
-const coverimageStyles = ref("");
+defineProps({
+  coverImage: { default: null },
+});
 </script>
 
 <style scoped></style>
