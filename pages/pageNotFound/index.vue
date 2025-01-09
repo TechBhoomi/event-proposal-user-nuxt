@@ -23,7 +23,6 @@
 <script setup>
 import { ref } from "vue";
 
-const message = ref("Welcome to Vue-3");
 </script>
 
 <style scoped></style>

@@ -30,27 +30,26 @@
       </section>
     </section>
     <!--!IDLE STATE -->
-   
+
     <article v-else>
       <section v-for="component in sortedElements" :key="component.id">
         <!--! NAVBAR -->
-         {{ console.log("component",component) }}
         <div v-if="component.name == 'navbar'">
-          <header class="sticky top-0">
+          <header>
             <NavHeader
               title="Qspiders"
               tagline="Qspiders Training Institution | Enquiry Course Proposal | 26 Nov 2024"
             />
             <!-- <Navbar :menuItems="component.details" /> -->
-              <Navbar :menuItems="component.details.map(item => item.data)" />
+            <Navbar :menuItems="component.details.map(item => item.data)" :uuid="uniqueTemplateId" />
           </header>
         </div>
         <!--!CAROUSAL-->
         <div v-if="component.name === 'carousel'">
-          <Carousel :images="component.details.map((item) => item.data)" />
+          <Carousel :images="component.details.map(item => item.data)" />
         </div>
-        <div>
-            <Curiculum />
+        <div v-if="component.name === 'Curriculum'" id="Curriculum">
+          <Curiculum />
         </div>
         <!--! COVER IMAGE -->
         <!-- <div v-else-if="component.name == 'cover_image'">
@@ -59,8 +58,8 @@
         <!-- <div v-else-if="component.name == 'location'">
           <Footer />
         </div> -->
-       
-        <!-- 
+
+        <!--
      
       <Curiculum />
       <UpcomingBatch />
@@ -84,7 +83,7 @@ const sortedElements = computed(() => {
   return (
     eventData.value.length > 0 &&
     eventData.value[0]?.template?.template[0]?.elements?.sort((a, b) => {
-      const positionOrder = ["top", "center", "bottom"];
+      const positionOrder = ["top", "center", "body", "bottom"];
       return (
         positionOrder.indexOf(a.position) - positionOrder.indexOf(b.position)
       );

@@ -1,6 +1,6 @@
 <template>
   <div class="p-2">
-    <iframe id="pdf" />
+    <!-- <iframe id="pdf" /> -->
     <section>
       <h1 class="lg:text-3xl text-xl font-bold">Curriculum</h1>
     </section>
@@ -46,7 +46,9 @@
             <div>
               <button
                 class="w-full bg-[#6EACDA] p-1 rounded-md"
-                @click="generateAndDownloadPDF(courseByID[0]?.topics)"
+                @click="
+                  generateAndDownloadPDF(courseByID[0]?.topics, courseByID[0])
+                "
               >
                 Download Pdf
               </button>
@@ -82,42 +84,46 @@ import { useNuxtApp } from "#app";
 
 const { $pdf } = useNuxtApp();
 
-const jsonData = ref([
-  { title: "Item 1", description: "Description for item 1" },
-  { title: "Item 2", description: "Description for item 2" },
-  // Add more data as needed
-]);
-
-const generateAndDownloadPDF = async subjects => {
-  console.log(subjects);
+const generateAndDownloadPDF = async (subjects, course_name) => {
   try {
     // Initialize a new PDF document
     $pdf.new({
       margins: { top: 20, bottom: 20, left: 20, right: 20 },
       size: "A4",
     });
-
+    $pdf.add([
+      {
+        raw: course_name?.name,
+        text: { fontSize: 26, fontWeight: "bold",},
+        alignment: "center",
+      },
+      { lineBreak: {} }, // Adds a line break after the title
+    ]);
     subjects.forEach(item => {
       console.log(item, "item");
       // Create an array for the main topic
       const mainTopic = [
-        { raw: item.name, text: { fontSize: 25, fontWeight: "bold" } },
+        { raw: item.name, text: { fontSize: 20, fontWeight: "bold" } },
       ];
       // Map subtopics to an array of PDF entries
       const subtopics =
+        item?.subtopics &&
         item?.subtopics.length > 0 &&
         item?.subtopics?.map(subtopic => ({
           raw: subtopic.name,
-          text: { fontSize: 16, fontWeight: "semiBold" },
+          text: { fontSize: 14, fontWeight: "light" },
         }));
 
       const spaces = [{ raw: "\n\n" }];
       // Combine main topic and subtopics
-      const pdfEntries = [...mainTopic, ...subtopics, ...spaces];
-      console.log(pdfEntries, "pdfEntries");
-
+      if (subtopics && subtopics.length > 0) {
+        let pdfEntries = [...mainTopic, ...subtopics, ...spaces];
+        $pdf.add(pdfEntries);
+      } else {
+        let pdfEntries = [...mainTopic, ...spaces];
+        $pdf.add(pdfEntries);
+      }
       // Add the combined entries to the PDF
-      $pdf.add(pdfEntries);
     });
 
     // Generate the PDF and obtain the Blob URL
@@ -129,7 +135,7 @@ const generateAndDownloadPDF = async subjects => {
     // Create a temporary link to trigger the download
     const link = document.createElement("a");
     link.href = blobUrl;
-    link.download = "custom_document.pdf";
+    link.download = course_name.name;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -155,9 +161,6 @@ const {
   getCourseByIdLoading,
   hasCourseByIdError,
 } = storeToRefs(STORE);
-const courseSubjects = computed(() => {
-  return courseData;
-});
 
 onBeforeMount(async () => {
   await STORE.getCourse();

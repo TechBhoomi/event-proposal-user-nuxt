@@ -31,10 +31,12 @@ const images = ref([
 </template>
 <style scoped></style> -->
 
-
 <script setup>
 import "vue3-carousel/dist/carousel.css";
 import { Carousel as VueCarousel, Slide } from "vue3-carousel";
+import { useGlobalStore } from "~/store/globalStore";
+const STORE = useGlobalStore();
+const { getCarouselImages, caroselImages } = storeToRefs(STORE);
 
 // Props to accept images dynamically
 defineProps({
@@ -68,5 +70,3 @@ const config = {
 </template>
 
 <style scoped></style>
-
-
