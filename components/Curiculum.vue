@@ -8,8 +8,8 @@
       :courseName="courseName"
     />
     <article class="p-2 flex items-center justify-center flex-col bg-[#efefef]">
-      <div class="text-xl font-bold">What are you Looking for?</div>
-      <div class="flex w-[80%] flex-wrap gap-2 p-4 mx-0">
+      <div class="text-2xl font-bold">What are you Looking for?</div>
+      <div class="flex flex-wrap gap-2 p-4 mx-0">
         <section
           v-for="sub in courseData"
           @click="getCourseID(sub)"
@@ -118,7 +118,7 @@ const getCourseID = async course => {
   await STORE.getCourseById(course?.courseResponseId);
   isSubTopicModalOpen.value = true;
   courseName.value = course?.title;
-  // console.log(course);
+  console.log(courseByID.value);
 };
 const closeSubTopicModal = () => {
   isSubTopicModalOpen.value = false;
