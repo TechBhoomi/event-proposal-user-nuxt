@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full">
+  <div class="w-full" v-if="isSubTopicModalOpen">
     <div
       id="crypto-modal"
       tabindex="-1"
-      class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex items-center justify-center bg-[#79797923] rounded-lg p-6 shadow-lg backdrop-blur-sm"
+      class="overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 max-h-full flex items-center justify-center rounded-lg p-6 shadow-lg backdrop-blur-sm bg-[#00000033]"
       @click="closeModal"
     >
       <div class="relative p-4 w-3/4 max-h-full">
@@ -41,23 +41,34 @@
             </button>
           </div>
           <!-- Modal body -->
-          <div class="p-4 md:p-5">
-            <div v-for="module in subjectData[0]?.topics" :key="module">
-              <h3
-                class="font-semibold underline underline-offset-2 text-[#FC6736]"
-              >
-                {{ module?.name }}
-              </h3>
-              <ul class="pl-7">
-                <li
-                  v-for="sub in module?.subtopics"
-                  :key="sub"
-                  class="font-normal topics"
+          <div>
+          </div>
+          <div class="p-4 md:p-5 overflow-y-auto h-[calc(100vh-20vh)]">
+            <section v-if="subjectData.length>0">
+              <div v-for="module in subjectData[0]?.topics" :key="module">
+                <h3
+                  class="font-semibold text-xl text-[#FC6736] whitespace-nowrap w-full"
                 >
-                  {{ sub?.name }}
-                </li>
-              </ul>
-            </div>
+                  {{ module?.name }}
+                </h3>
+                <ul class="pl-7">
+                  <li
+                    v-for="sub in module?.subtopics"
+                    :key="sub"
+                    class="topics text-base font-medium"
+                  >
+                    {{ sub?.name }}
+                  </li>
+                </ul>
+              </div>
+            </section>
+            <section v-else>
+              <div>
+                <h2 class="text-lg font-semibold text-red-600">
+                  No Course Data Found!
+                </h2>
+              </div>
+            </section>
           </div>
         </div>
       </div>
@@ -68,7 +79,7 @@
 <script setup>
 const props = defineProps({
   isSubTopicModalOpen: { required: true, type: Boolean },
-  subjectData: { type: [Array] },
+  subjectData: { type: [Array, Object] },
   courseName: { type: String, required: true },
 });
 const { isSubTopicModalOpen, subjectData, courseName } = props;
