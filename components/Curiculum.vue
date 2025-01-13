@@ -1,86 +1,33 @@
 <template>
-  <div class="p-2">
-    <!-- <iframe id="pdf" /> -->
-    <section>
-      <h1 class="lg:text-3xl text-xl font-bold">Curriculum</h1>
-    </section>
-    <article class="rounded-md bg-[#FFE6C7] pt-2 pb-4">
-      <h2 class="font-bold text-base w-full text-center p-2">
-        Software Testing With Java Automation <span>-3 Months</span>
-      </h2>
-      <section class="lg:grid grid-cols-3 gap-2 p-2">
-        <div class="border-2 rounded-lg overflow-hidden bg-[#fff]">
-          <h2 :class="headingStyles">Subjects Covered</h2>
-          <div :class="courseBlock">
-            <ul>
-              <li
-                v-for="sub in courseData"
-                :key="sub"
-                @click="getCourseID(sub)"
-                class="hover:font-semibold cursor-pointer"
-              >
-                {{ sub?.title }}
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="border-2 rounded-lg overflow-hidden bg-[#fff]">
-          <h2 :class="headingStyles">Modules</h2>
-          <div v-if="courseByID && courseByID.length > 0">
-            <div :class="courseBlock" class="module_block">
-              <div v-for="module in courseByID[0]?.topics" :key="module">
-                <h3 class="font-semibold underline underline-offset-2">
-                  {{ module?.name }}
-                </h3>
-                <ul class="pl-7">
-                  <li
-                    v-for="sub in module?.subtopics"
-                    :key="sub"
-                    class="font-normal topics"
-                  >
-                    {{ sub?.name }}
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div>
-              <button
-                class="w-full bg-[#6EACDA] p-1 rounded-md"
-                @click="
-                  generateAndDownloadPDF(courseByID[0]?.topics, courseByID[0])
-                "
-              >
-                Download Pdf
-              </button>
-            </div>
-          </div>
-          <div v-else class="text-red-600 text-center">No Data Found</div>
-        </div>
-        <div class="border-2 rounded-lg overflow-hidden bg-[#fff]">
-          <h2 :class="headingStyles">Testimonials</h2>
-          <div :class="courseBlock">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt
-            quidem minima a vel, incidunt facere odit excepturi fugiat
-            recusandae tenetur iure fugit animi deserunt repellendus voluptatum
-            laboriosam beatae sed deleniti non. Doloremque perferendis magnam
-            laboriosam rerum exercitationem quas tempora nisi et fugiat a nihil,
-            dolore autem magni fuga, iusto laborum. At odio vitae distinctio
-            eaque inventore ducimus tenetur aspernatur officia nisi eum.
-            Voluptate aliquid beatae quibusdam quis quaerat fuga tempore sed
-            impedit. Provident totam magnam enim ad facere nam non unde id,
-            vitae ex sequi nihil exercitationem voluptatum delectus modi itaque
-            ullam amet deserunt numquam ipsum recusandae nulla quas. Eius!
-          </div>
-        </div>
-      </section>
+  <section>
+    <CourseSubTopics
+      :subjectData="courseByID"
+      v-if="isSubTopicModalOpen"
+      :isSubTopicModalOpen="isSubTopicModalOpen"
+      @closeSubTopicModal="closeSubTopicModal"
+      :courseName="courseName"
+    />
+    <article class="p-2 flex items-center justify-center flex-col bg-[#efefef]">
+      <div class="text-xl font-bold">What are you Looking for?</div>
+      <div class="flex w-[80%] flex-wrap gap-2 p-4 mx-0">
+        <section
+          v-for="sub in courseData"
+          @click="getCourseID(sub)"
+          :key="sub"
+          class="bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center cursor-pointer text-base"
+        >
+          {{ sub?.title }}
+        </section>
+      </div>
     </article>
-  </div>
+  </section>
 </template>
 
 <script setup>
 import { ref, reactive } from "vue";
 import { useGlobalStore } from "~/store/globalStore";
 import { useNuxtApp } from "#app";
+import CourseSubTopics from "./CourseSubTopics.vue";
 
 const { $pdf } = useNuxtApp();
 
@@ -94,7 +41,7 @@ const generateAndDownloadPDF = async (subjects, course_name) => {
     $pdf.add([
       {
         raw: course_name?.name,
-        text: { fontSize: 26, fontWeight: "bold",},
+        text: { fontSize: 26, fontWeight: "bold" },
         alignment: "center",
       },
       { lineBreak: {} }, // Adds a line break after the title
@@ -165,8 +112,16 @@ const {
 onBeforeMount(async () => {
   await STORE.getCourse();
 });
+const isSubTopicModalOpen = ref(false);
+const courseName = ref("");
 const getCourseID = async course => {
   await STORE.getCourseById(course?.courseResponseId);
+  isSubTopicModalOpen.value = true;
+  courseName.value = course?.title;
+  // console.log(course);
+};
+const closeSubTopicModal = () => {
+  isSubTopicModalOpen.value = false;
 };
 </script>
 
