@@ -104,9 +104,7 @@ onBeforeMount(async () => {
   router.push(uuid);
   await STORE.getEventData(uuid);
 });
-onMounted(() => {
-  console.log(eventData.value, "values");
-});
+
 </script>
 
 <style scoped></style>
