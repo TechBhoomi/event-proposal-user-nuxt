@@ -41,7 +41,10 @@
               tagline="Qspiders Training Institution | Enquiry Course Proposal | 26 Nov 2024"
             />
             <!-- <Navbar :menuItems="component.details" /> -->
-            <Navbar :menuItems="component.details.map(item => item.data)" :uuid="uniqueTemplateId" />
+            <Navbar
+              :menuItems="component.details.map(item => item.data)"
+              :uuid="uniqueTemplateId"
+            />
           </header>
         </div>
         <!--!CAROUSAL-->
@@ -75,6 +78,7 @@
 <script setup>
 import { useGlobalStore } from "@/store/globalStore";
 import { computed } from "vue";
+import EnquiryFrom from "~/components/EnquiryFrom.vue";
 
 const STORE = useGlobalStore();
 const { count, eventData, isEventApiLoading, apiError } = storeToRefs(STORE);
@@ -92,10 +96,12 @@ const sortedElements = computed(() => {
 });
 
 const route = useRoute();
+const router = useRouter();
 let uniqueTemplateId = ref(null);
 onBeforeMount(async () => {
   const { uuid } = route.params;
   uniqueTemplateId.value = uuid;
+  router.push(uuid);
   await STORE.getEventData(uuid);
 });
 onMounted(() => {
