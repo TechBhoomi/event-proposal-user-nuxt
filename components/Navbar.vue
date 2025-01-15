@@ -45,9 +45,11 @@
           <a
             v-for="(menu, index) in menuItems"
             :key="index"
-            :href="`${menu == 'home' ? uuid : '#' + menu}`"
+            :href="`${
+              menu == 'home' ? uuid : '#' + menu.trim().replace(' ', '_')
+            }`"
             class="hover:text-[#F96E2A] px-3 text-sm font-medium capitalize whitespace-nowrap"
-            >{{ menu }}</a
+            >{{ menu}}</a
           >
         </div>
       </div>
