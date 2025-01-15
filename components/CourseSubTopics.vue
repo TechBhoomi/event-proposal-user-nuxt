@@ -3,7 +3,7 @@
     <div
       id="crypto-modal"
       tabindex="-1"
-      class="overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 max-h-full flex items-center justify-center rounded-lg lg:p-6 shadow-lg backdrop-blur-sm bg-[#00000033]"
+      class="overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 max-h-full flex items-center justify-center rounded-lg lg:p-6 shadow-lg backdrop-blur-sm bg-[#00000033] animate-browseInt"
     >
       <div class="relative p-4 lg:w-3/4 w-full max-h-full">
         <!-- Modal content -->
@@ -40,7 +40,10 @@
             </button>
           </div>
           <!-- Modal body -->
-          <div class="p-4 md:p-5 overflow-y-auto h-[calc(100vh-10rem)]">
+          <div
+            class="p-4 md:p-5 overflow-y-auto h-[calc(100vh-10rem)]"
+            v-if="subjectData[0]?.topics?.length"
+          >
             <div class="accordion">
               <div
                 v-for="(module, index) in subjectData[0]?.topics || []"
@@ -92,6 +95,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="text-2xl font-bold text-red-500 animate-browseInt p-5" v-else>
+            <h2>No data found for this course!</h2>
           </div>
         </div>
       </div>
