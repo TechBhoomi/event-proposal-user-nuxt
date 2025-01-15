@@ -15,6 +15,8 @@ export const useGlobalStore = defineStore("globalStore", () => {
   const courseByID = ref([]);
   const getCourseByIdLoading = ref(false);
   const hasCourseByIdError = ref(false);
+  // branch data
+  const branches = ref("");
   // get event
   async function getEventData(uuid) {
     try {
@@ -68,6 +70,16 @@ export const useGlobalStore = defineStore("globalStore", () => {
       throw new Error("Please provide a valid course ID");
     }
   }
+  async function getBranchByOrg() {
+    try {
+      const response = await axios.get(
+        "https://gotest.qspiders.com/backend/api/v1/branches/getAllBranches?organization=jspiders"
+      );
+      branches.value = response?.data.data[0]?.cities;
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return {
     count,
     getEventData,
@@ -82,5 +94,7 @@ export const useGlobalStore = defineStore("globalStore", () => {
     courseByID,
     getCourseByIdLoading,
     hasCourseByIdError,
+    getBranchByOrg,
+    branches,
   };
 });

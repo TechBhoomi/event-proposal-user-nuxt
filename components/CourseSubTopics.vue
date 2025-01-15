@@ -3,9 +3,9 @@
     <div
       id="crypto-modal"
       tabindex="-1"
-      class="overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 max-h-full flex items-center justify-center rounded-lg p-6 shadow-lg backdrop-blur-sm bg-[#00000033]"
+      class="overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 max-h-full flex items-center justify-center rounded-lg lg:p-6 shadow-lg backdrop-blur-sm bg-[#00000033] animate-browseInt"
     >
-      <div class="relative p-4 w-3/4 max-h-full">
+      <div class="relative p-4 lg:w-3/4 w-full max-h-full">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <!-- Modal header -->
@@ -18,7 +18,7 @@
             <button
               type="button"
               @click="closeModal"
-              class="text-red-300 bg-transparent hover:bg-gray-200 hover:text-red-500 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              class="bg-gray-200 text-red-500 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
               data-modal-toggle="crypto-modal"
             >
               <svg
@@ -32,7 +32,7 @@
                   stroke="currentColor"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  stroke-width="2"
+                  stroke-width="2.5"
                   d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                 />
               </svg>
@@ -40,7 +40,10 @@
             </button>
           </div>
           <!-- Modal body -->
-          <div class="p-4 md:p-5 overflow-y-auto h-[calc(100vh-20vh)]">
+          <div
+            class="p-4 md:p-5 overflow-y-auto h-[calc(100vh-10rem)]"
+            v-if="subjectData[0]?.topics?.length"
+          >
             <div class="accordion">
               <div
                 v-for="(module, index) in subjectData[0]?.topics || []"
@@ -49,7 +52,7 @@
               >
                 <div
                   class="accordion-header flex items-center cursor-pointer"
-                  @click="toggleAccordion(index)"
+                  @click.stop="toggleAccordion(index)"
                 >
                   <h2 class="text-xl font-semibold text-[#173B45]">
                     {{ module?.name }}
@@ -60,12 +63,12 @@
                     <li
                       v-for="sub in module?.subtopics"
                       :key="sub"
-                      class="topics text-base font-medium"
+                      class="topics text-base font-medium cursor-default"
                     >
                       <div class="flex items-center gap-2">
                         <span>
                           <svg
-                            class="h-4 w-4"
+                            class="h-3 w-3"
                             fill="#FF8343"
                             viewBox="0 0 256 256"
                             id="Flat"
@@ -92,6 +95,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="text-2xl font-bold text-red-500 animate-browseInt p-5" v-else>
+            <h2>No data found for this course!</h2>
           </div>
         </div>
       </div>

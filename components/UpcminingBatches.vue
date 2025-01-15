@@ -1,0 +1,13 @@
+<template>
+  <h1>
+    {{ message }}
+  </h1>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const message = ref("Upcoming Batches");
+</script>
+
+<style scoped></style>
