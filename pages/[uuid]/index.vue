@@ -32,7 +32,11 @@
     <!--!IDLE STATE -->
 
     <article v-else>
-      <section v-for="component in sortedElements" :key="component.id">
+      <section
+        v-for="component in sortedElements"
+        :key="component.id"
+        class="sticky top-0"
+      >
         <!--! NAVBAR -->
         <div v-if="component.name == 'navbar'">
           <header>
@@ -47,12 +51,54 @@
             />
           </header>
         </div>
+      </section>
+      <section v-for="component in sortedElements" :key="component.id">
+        <!-- !THIS IS NOT WORKING AS EXPECTED IF INCLUDED INSIDE THIS SECTION -->
+        <!-- <div v-if="component.name == 'navbar'">
+          <header>
+            <NavHeader
+              title="Qspiders"
+              tagline="Qspiders Training Institution | Enquiry Course Proposal | 26 Nov 2024"
+            />
+            <Navbar
+              :menuItems="component.details.map(item => item.data)"
+              :uuid="uniqueTemplateId"
+            />
+          </header>
+        </div> -->
         <!--!CAROUSAL-->
-        <div v-if="component.name === 'carousel'">
+        <div
+          v-if="component.name === 'carousel'"
+          :id="component.name.trim().replace(' ', '_')"
+        >
           <Carousel :images="component.details.map(item => item.data)" />
         </div>
-        <div v-if="component.name === 'Curriculum'" id="Curriculum">
+        <div
+          v-if="component.name === 'Curriculum'"
+          :id="component.name.trim().replace(' ', '_')"
+        >
           <Curiculum />
+        </div>
+        <!--!UPCOMING BATCHES -->
+        <!-- <div
+          v-if="component.name === 'Upcoming Batches'"
+          :id="component.name.trim().replace(' ', '_')"
+        >
+          <UpcminingBatches />
+        </div> -->
+        <!-- !PLACEMENT STATS -->
+        <!-- <div
+          v-if="component.name === 'Placement Statistics'"
+          :id="component.name.trim().replace(' ', '_')"
+        >
+          <PlacementStats />
+        </div> -->
+        <!-- !BRANCH DATA -->
+        <div
+          v-if="component.name === 'Branch Sneak-Peek'"
+          :id="component.name.trim().replace(' ', '_')"
+        >
+          <Branches />
         </div>
         <!--! COVER IMAGE -->
         <!-- <div v-else-if="component.name == 'cover_image'">
@@ -104,7 +150,6 @@ onBeforeMount(async () => {
   router.push(uuid);
   await STORE.getEventData(uuid);
 });
-
 </script>
 
 <style scoped></style>
