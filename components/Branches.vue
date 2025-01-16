@@ -4,23 +4,23 @@
       v-if="isBranchDetailsModalOpen"
       :isBranchDetailsModalOpen="isBranchDetailsModalOpen"
       @closeViewBranchDetails="closeViewBranchDetails"
+      :branchDetails="branchDetails"
+      :cityName="cityName"
     />
-    <article class="flex items-center justify-center flex-col bg-[#FFF0DC] p-4">
-      <div class="p-1 w-full flex items-center justify-center">
+    <article class="flex items-center justify-center flex-col bg-[#EBEBEB] p-4">
+      <div class="p-1 w-full flex items-center justify-center border border-2 border-r-indigo-500">
         <div class="text-2xl font-bold">Our Branches and Locations</div>
       </div>
       <div
-        class="grid grid-cols-2 lg:grid-cols-6 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-4 w-full p-3 mx-0"
+        class="grid grid-cols-2 lg:grid-cols-6 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-3 w-full p-3 mx-0"
       >
         <div
           v-for="(city, index) in branches"
           :key="index"
-          class="group flex flex-col bg-[#FFA559] border-[#10375C] border-[0.015rem] shadow-sm rounded-lg w-full p-5 cursor-pointer"
+          @click="openBranchDetails(city)"
+          class="group flex flex-col bg-[#F5A25D] border-[#10375C] border-[0.015rem] shadow-sm rounded-lg w-full p-5 cursor-pointer"
         >
-          <div
-            class="flex items-center"
-            @click="isBranchDetailsModalOpen = true"
-          >
+          <div class="flex items-center">
             <svg
               class="w-6 h-6 text-gray-800 dark:text-white group-hover:animate-flyin"
               aria-hidden="true"
@@ -37,7 +37,7 @@
               />
             </svg>
 
-            <h5 class="ml-3 text-slate-800 lg:text-xl text-base font-semibold">
+            <h5 class="ml-3 text-slate-800 lg:text-xl text-sm font-semibold">
               {{ city.cityName }}
             </h5>
           </div>
@@ -74,6 +74,7 @@ import { useGlobalStore } from "~/store/globalStore";
 const STORE = useGlobalStore();
 const { branches } = storeToRefs(STORE);
 const isBranchDetailsModalOpen = ref(false);
+const cityName = ref("");
 const viewBranchDetails = () => {
   isBranchDetailsModalOpen.value = true;
 };
@@ -83,6 +84,13 @@ const closeViewBranchDetails = () => {
 onBeforeMount(async () => {
   await STORE.getBranchByOrg();
 });
+const branchDetails = ref(null);
+const openBranchDetails = data => {
+  console.log(data, "data");
+  branchDetails.value = data;
+  cityName.value = data?.cityName;
+    isBranchDetailsModalOpen.value = true;
+};
 </script>
 
 <style scoped></style>
