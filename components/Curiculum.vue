@@ -7,7 +7,7 @@
       @closeSubTopicModal="closeSubTopicModal"
       :courseName="courseName"
     />
-    <article class="p-2 flex items-center justify-center flex-col bg-[#efefef]">
+    <article class="p-2 flex items-center justify-center flex-col bg-[#EBEBEB] mb-2">
       <div class="text-2xl font-bold">What are you Looking for?</div>
       <div class="flex flex-wrap gap-2 p-4 mx-0">
         <section
