@@ -39,22 +39,23 @@ const STORE = useGlobalStore();
 const { getCarouselImages, caroselImages } = storeToRefs(STORE);
 
 // Props to accept images dynamically
-defineProps({
+const props = defineProps({
   images: {
     type: Array,
     required: true,
   },
 });
+let { images } = props;
 
 const config = {
-  autoplay: 2000,
+  autoplay: images.length > 2 ? 2000 : false,
   wrapAround: true,
   pauseAutoplayOnHover: true,
 };
 </script>
 
 <template>
-  <div class="carousel-container relative -z-10">
+  <div class="carousel-container relative">
     <VueCarousel v-bind="config">
       <Slide v-for="(image, index) in images" :key="index">
         <div class="carousel__item relative w-full">
