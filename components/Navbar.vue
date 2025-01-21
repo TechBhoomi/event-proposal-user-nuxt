@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="bg-[#EEEEEE] text-[#2F3645] border-b-[0.1rem] border-b-[#2f36454f] sticky top-0 z-50"
+    class="bg-[#EEEEEE] text-[#2F3645] border-b-[0.1rem] border-b-[#2f36454f]"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
@@ -46,10 +46,12 @@
             v-for="(menu, index) in menuItems"
             :key="index"
             :href="`${
-              menu == 'home' ? uuid : '#' + menu.trim().replace(' ', '_')
+              menu == 'home'
+                ? uuid
+                : '#' + menu.toLowerCase().trim().replace(' ', '_')
             }`"
             class="hover:text-[#F96E2A] px-3 text-sm font-medium capitalize whitespace-nowrap"
-            >{{ menu}}</a
+            >{{ menu }}</a
           >
         </div>
       </div>
@@ -64,7 +66,11 @@
         <a
           v-for="(menu, index) in menuItems"
           :key="index"
-          href="#"
+          :href="`${
+            menu == 'home'
+              ? uuid
+              : '#' + menu.toLowerCase().trim().replace(' ', '_')
+          }`"
           class="block hover:bg-blue-500 px-3 py-2 rounded-md text-base font-medium capitalize"
           >{{ menu }}</a
         >

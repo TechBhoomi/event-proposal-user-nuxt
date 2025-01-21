@@ -1,99 +1,17 @@
 <template>
-  <div class="bg-[#efefef] rounded-md p-2">
+  <div class="bg-[#EBEBEB] rounded-md p-2 flex flex-col">
     <section>
-      <h1 class="lg:text-3xl text-xl font-bold">Placement Activities</h1>
+      <h1 class="lg:text-3xl text-xl font-bold w-full text-center">Placement Activities</h1>
     </section>
-    <!-- !EVERY DAY PRESENTAIONS -->
     <section>
-      <h1 class="text-base font-semibold">EveryDay Presentation</h1>
       <div class="grid lg:grid-cols-5 grid-cols-3 px-2.5 py-2.5">
-        <div class="lg:w-52 w-28 bg-gray-300 rounded-md">
+        <div
+          class="lg:w-52 w-28 rounded-md"
+          v-for="(image, imageIndex) in images"
+          :key="imageIndex"
+        >
           <img
-            src="https://cdn.pixabay.com/photo/2023/09/23/09/02/interview-8270514_640.png"
-            alt=""
-          />
-        </div>
-        <div class="lg:w-52 w-28 bg-gray-300 rounded-md">
-          <img
-            src="https://cdn.pixabay.com/photo/2023/09/23/09/02/interview-8270514_640.png"
-            alt=""
-          />
-        </div>
-        <div class="lg:w-52 w-28 bg-gray-300 rounded-md">
-          <img
-            src="https://cdn.pixabay.com/photo/2023/09/23/09/02/interview-8270514_640.png"
-            alt=""
-          />
-        </div>
-      </div>
-    </section>
-    <!-- !MOCK TESTS -->
-    <section>
-      <h1 class="text-base font-semibold">Assignments/Tests</h1>
-     <div class="grid lg:grid-cols-5 grid-cols-3 px-2.5 py-2.5">
-        <div class="lg:w-52 w-28 bg-gray-300 rounded-md">
-          <img
-            src="https://cdn.pixabay.com/photo/2023/09/23/09/02/interview-8270514_640.png"
-            alt=""
-          />
-        </div>
-        <div class="lg:w-52 w-28 bg-gray-300 rounded-md">
-          <img
-            src="https://cdn.pixabay.com/photo/2023/09/23/09/02/interview-8270514_640.png"
-            alt=""
-          />
-        </div>
-        <div class="lg:w-52 w-28 bg-gray-300 rounded-md">
-          <img
-            src="https://cdn.pixabay.com/photo/2023/09/23/09/02/interview-8270514_640.png"
-            alt=""
-          />
-        </div>
-      </div>
-    </section>
-    <!-- !MOCK INTERVIEWS -->
-    <section>
-      <h1 class="text-base font-semibold">Mock Interviews</h1>
-      <div class="grid lg:grid-cols-5 grid-cols-3 px-2.5 py-2.5">
-        <div class="lg:w-52 w-28 bg-gray-300 rounded-md">
-          <img
-            src="https://cdn.pixabay.com/photo/2023/09/23/09/02/interview-8270514_640.png"
-            alt=""
-          />
-        </div>
-        <div class="lg:w-52 w-28 bg-gray-300 rounded-md">
-          <img
-            src="https://cdn.pixabay.com/photo/2023/09/23/09/02/interview-8270514_640.png"
-            alt=""
-          />
-        </div>
-        <div class="lg:w-52 w-28 bg-gray-300 rounded-md">
-          <img
-            src="https://cdn.pixabay.com/photo/2023/09/23/09/02/interview-8270514_640.png"
-            alt=""
-          />
-        </div>
-      </div>
-    </section>
-    <!-- !GROOMING SESSIONS -->
-    <section>
-      <h1 class="text-base font-semibold">Grooming Sessions</h1>
-     <div class="grid lg:grid-cols-5 grid-cols-3 px-2.5 py-2.5">
-        <div class="lg:w-52 w-28 bg-gray-300 rounded-md">
-          <img
-            src="https://cdn.pixabay.com/photo/2023/09/23/09/02/interview-8270514_640.png"
-            alt=""
-          />
-        </div>
-        <div class="lg:w-52 w-28 bg-gray-300 rounded-md">
-          <img
-            src="https://cdn.pixabay.com/photo/2023/09/23/09/02/interview-8270514_640.png"
-            alt=""
-          />
-        </div>
-        <div class="lg:w-52 w-28 bg-gray-300 rounded-md">
-          <img
-            src="https://cdn.pixabay.com/photo/2023/09/23/09/02/interview-8270514_640.png"
+            :src="`https://gotest.qspiders.com/api/v1/get_image?name=${image}`"
             alt=""
           />
         </div>
@@ -103,9 +21,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-
-const message = ref("Welcome to Vue-3");
+const props = defineProps({
+  images: { type: Array, required: true },
+});
 </script>
 
 <style scoped></style>

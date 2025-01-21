@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-[#F96E2A] text-white p-1 sticky top-0">
+  <nav class="bg-[#F96E2A] text-white p-1">
     <div class="grid lg:grid-cols-2">
       <!-- Brand -->
       <div class="">
@@ -30,7 +30,6 @@ defineProps({
       "Qspiders Training Institution | Enquiry Course Proposal | 26 Nov 2024",
   },
 });
-
 </script>
 
 <style scoped></style>
