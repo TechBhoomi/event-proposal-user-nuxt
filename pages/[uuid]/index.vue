@@ -31,61 +31,41 @@
     </section>
     <!--!IDLE STATE -->
 
-    <article v-else>
-      <section
-        v-for="component in sortedElements"
-        :key="component.id"
-        class="sticky top-0"
-      >
-        <!--! NAVBAR -->
-        <div v-if="component.name == 'navbar'">
-          <header>
-            <NavHeader
-              title="Qspiders"
-              tagline="Qspiders Training Institution | Enquiry Course Proposal | 26 Nov 2024"
-            />
-            <!-- <Navbar :menuItems="component.details" /> -->
-            <Navbar
-              :menuItems="component.details.map(item => item.data)"
-              :uuid="uniqueTemplateId"
-            />
-          </header>
-        </div>
-      </section>
-      <section v-for="component in sortedElements" :key="component.id">
+    <template v-else>
+      <template v-for="component in sortedElements" :key="component.id">
         <!-- !THIS IS NOT WORKING AS EXPECTED IF INCLUDED INSIDE THIS SECTION -->
-        <!-- <div v-if="component.name == 'navbar'">
-          <header>
-            <NavHeader
-              title="Qspiders"
-              tagline="Qspiders Training Institution | Enquiry Course Proposal | 26 Nov 2024"
-            />
-            <Navbar
-              :menuItems="component.details.map(item => item.data)"
-              :uuid="uniqueTemplateId"
-            />
-          </header>
-        </div> -->
+        <div
+          v-if="component.name.toLowerCase() == 'header'"
+          class="sticky top-0 z-50"
+        >
+          <NavHeader
+            class="sticky top-0"
+            title="Qspiders"
+            :tagline="component?.details[0]?.data"
+          />
+        </div>
+
+        <div v-if="component.name == 'navbar'" class="sticky top-10 z-50">
+          <Navbar
+            :menuItems="component.details.map(item => item.data)"
+            :uuid="uniqueTemplateId"
+          />
+        </div>
         <!--!CAROUSAL-->
         <div
-          v-if="component.name === 'carousel'"
-          :id="component.name.trim().replace(' ', '_')"
+          v-if="component.name?.toLowerCase() === 'carousel'"
+          :id="component.name?.toLowerCase().trim().replace(' ', '_')"
+          class="flex items-center justify-center p-2"
         >
           <Carousel :images="component.details.map(item => item.data)" />
         </div>
         <div
-          v-if="component.name === 'Curriculum'"
-          :id="component.name.trim().replace(' ', '_')"
+          v-if="component.name?.toLowerCase() === 'curriculum'"
+          :id="component.name?.toLowerCase().trim().replace(' ', '_')"
         >
           <Curiculum />
         </div>
-        <!--!UPCOMING BATCHES -->
-        <!-- <div
-          v-if="component.name === 'Upcoming Batches'"
-          :id="component.name.trim().replace(' ', '_')"
-        >
-          <UpcminingBatches />
-        </div> -->
+
         <!-- !PLACEMENT STATS -->
         <!-- <div
           v-if="component.name === 'Placement Statistics'"
@@ -95,36 +75,58 @@
         </div> -->
         <!-- !BRANCH DATA -->
         <div
-          v-if="component.name === 'Branch Sneak-Peek'"
-          :id="component.name.trim().replace(' ', '_')"
+          v-if="component.name.toLowerCase() === 'branch sneak-peek'"
+          :id="component.name?.toLowerCase().trim().replace(' ', '_')"
         >
           <Branches />
         </div>
-        <!--! COVER IMAGE -->
-        <!-- <div v-else-if="component.name == 'cover_image'">
-          <CoverImage :coverImage="component.details.data" />
-        </div> -->
-        <!-- <div v-else-if="component.name == 'location'">
+        <!-- !PLACEMENT ACTIVITY-->
+        <div
+          v-if="component.name.toLowerCase() === 'placement activities'"
+          :id="component.name.toLowerCase().trim().replace(' ', '_')"
+        >
+          <PlacementActivity
+            :images="component.details.map(item => item.data)"
+          />
+        </div>
+        <!-- !ENQUIRY FORM -->
+        <div
+          v-if="component.name?.toLowerCase() === 'enquiry form'"
+          :id="component.name.trim().replace(' ', '_')"
+        >
+          <EnquiryFrom />
+        </div>
+        <!-- !FOOTER -->
+        <div
+          v-if="component.name.toLowerCase() === 'location'"
+          :id="component.name.trim().replace(' ', '_')"
+        >
           <Footer />
+        </div>
+
+        <!--!UPCOMING BATCHES -->
+        <!-- <div
+          v-if="component.name === 'Upcoming Batches'"
+          :id="component.name.trim().replace(' ', '_')"
+        >
+          <UpcminingBatches />
         </div> -->
 
-        <!--
-     
-      <Curiculum />
+        <!-- <Curiculum />
       <UpcomingBatch />
       <PlacementStats />
       <PlacementActivity />
       <OtherCoursesAndBranches />
-      <Footer /> -->
-      </section>
-    </article>
+      <Footer />  -->
+      </template>
+    </template>
   </section>
 </template>
 
 <script setup>
 import { useGlobalStore } from "@/store/globalStore";
 import { computed } from "vue";
-import EnquiryFrom from "~/components/EnquiryFrom.vue";
+//import EnquiryFrom from "~/components/EnquiryFrom.vue";
 
 const STORE = useGlobalStore();
 const { count, eventData, isEventApiLoading, apiError } = storeToRefs(STORE);
@@ -133,13 +135,24 @@ const sortedElements = computed(() => {
   return (
     eventData.value.length > 0 &&
     eventData.value[0]?.template?.template[0]?.elements?.sort((a, b) => {
-      const positionOrder = ["top", "center", "body", "bottom"];
+      const positionOrder = [
+        "header-top",
+        "header-bottom",
+        "Cover",
+        "Body-Top",
+        "Body-Center",
+        "Body-Bottom",
+        "Bottom",
+        "Footer",
+      ];
       return (
         positionOrder.indexOf(a.position) - positionOrder.indexOf(b.position)
       );
     })
   );
 });
+
+console.log(sortedElements.value, "sortedElements");
 
 const route = useRoute();
 const router = useRouter();
@@ -152,4 +165,9 @@ onBeforeMount(async () => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.scroll-container {
+  overflow-y: auto;
+  height: 100vh;
+}
+</style>
