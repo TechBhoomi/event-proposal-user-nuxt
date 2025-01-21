@@ -7,14 +7,16 @@
       @closeSubTopicModal="closeSubTopicModal"
       :courseName="courseName"
     />
-    <article class="p-2 flex items-center justify-center flex-col bg-[#EBEBEB] mb-2">
+    <article
+      class="p-2 flex items-center justify-center flex-col bg-[#EBEBEB] mb-2"
+    >
       <div class="text-2xl font-bold">What are you Looking for?</div>
       <div class="flex flex-wrap gap-2 p-4 mx-0">
         <section
           v-for="sub in courseData"
           @click="getCourseID(sub)"
           :key="sub"
-          class="bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold me-2 px-4 py-0.5 dark:bg-gray-700 dark:text-blue-400 border rounded-md border-blue-400 inline-flex items-center justify-center cursor-pointer text-base"
+          class="bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold me-2 px-4 lg:py-1 py-1 dark:bg-gray-700 dark:text-blue-400 border rounded-md border-blue-400 inline-flex items-center justify-center cursor-pointer lg:text-lg text-sm"
         >
           {{ sub?.title }}
         </section>
