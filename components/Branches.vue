@@ -7,26 +7,24 @@
       :branchDetails="branchDetails"
       :cityName="cityName"
     />
-    <article class="flex items-center justify-center flex-col bg-[#EBEBEB] p-4">
-      <div class="p-1 w-full flex items-center justify-center border border-2 border-r-indigo-500">
+    <article class="flex items-center justify-center flex-col bg-[#EBEBEB] p-4 mb-2">
+      <div class="p-1 w-full flex items-center justify-center sm:border-2">
         <div class="text-2xl font-bold">Our Branches and Locations</div>
       </div>
       <div
-        class="grid grid-cols-2 lg:grid-cols-6 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-3 w-full p-3 mx-0"
+        class="grid grid-cols-2 lg:grid-cols-6 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-4 gap-3 w-full p-3 mx-0"
       >
         <div
           v-for="(city, index) in branches"
           :key="index"
           @click="openBranchDetails(city)"
-          class="group flex flex-col bg-[#F5A25D] border-[#10375C] border-[0.015rem] shadow-sm rounded-lg w-full p-5 cursor-pointer"
+          class="group flex flex-col bg-[#FFC89C] border-[#ff8343] border-2 shadow-sm rounded-lg w-full p-3 xl:p-5 2xl:p-5 cursor-pointer"
         >
           <div class="flex items-center">
             <svg
-              class="w-6 h-6 text-gray-800 dark:text-white group-hover:animate-flyin"
+              class="lg:h-6 h-4 text-gray-800 dark:text-white group-hover:animate-flyin"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -89,7 +87,7 @@ const openBranchDetails = data => {
   console.log(data, "data");
   branchDetails.value = data;
   cityName.value = data?.cityName;
-    isBranchDetailsModalOpen.value = true;
+  isBranchDetailsModalOpen.value = true;
 };
 </script>
 
