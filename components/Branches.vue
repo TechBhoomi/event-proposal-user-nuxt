@@ -7,7 +7,9 @@
       :branchDetails="branchDetails"
       :cityName="cityName"
     />
-    <article class="flex items-center justify-center flex-col bg-[#EBEBEB] p-4 mb-2">
+    <article
+      class="flex items-center justify-center flex-col bg-[#EBEBEB] p-4 mb-2"
+    >
       <div class="p-1 w-full flex items-center justify-center sm:border-2">
         <div class="text-2xl font-bold">Our Branches and Locations</div>
       </div>
@@ -70,6 +72,7 @@
 import { ref } from "vue";
 import { useGlobalStore } from "~/store/globalStore";
 const STORE = useGlobalStore();
+
 const { branches } = storeToRefs(STORE);
 const isBranchDetailsModalOpen = ref(false);
 const cityName = ref("");
