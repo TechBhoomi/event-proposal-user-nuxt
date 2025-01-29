@@ -48,10 +48,11 @@ const props = defineProps({
 let { images } = props;
 
 const config = {
-  autoplay: images.length > 2 ? 2000 : false,
+  autoplay: images.length > 1 ? 2000 : false,
   wrapAround: true,
   pauseAutoplayOnHover: true,
 };
+const URL = import.meta.env.VITE_BASE_URL;
 </script>
 
 <template>
@@ -60,7 +61,7 @@ const config = {
       <Slide v-for="(image, index) in images" :key="index">
         <div class="carousel__item relative w-full">
           <img
-            :src="`https://gotest.qspiders.com/api/v1/get_image?name=${image}`"
+            :src="`${URL}/api/v1/get_image?name=${image}`"
             alt="Slide Image"
             class="carousel-image lg:h-[80vh] h-[50vh] w-full object-cover"
           />

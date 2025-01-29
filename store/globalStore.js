@@ -1,6 +1,5 @@
 import axios from "axios";
 import { defineStore } from "pinia";
-
 export const useGlobalStore = defineStore("globalStore", () => {
   const count = ref(0);
   const apiError = ref(false);
@@ -15,6 +14,10 @@ export const useGlobalStore = defineStore("globalStore", () => {
   const courseByID = ref([]);
   const getCourseByIdLoading = ref(false);
   const hasCourseByIdError = ref(false);
+  // placment stats
+  const placementStats = ref([]);
+  const isPlacementDataLoading = ref(false);
+  const hasPlacementStatsError = ref(false);
   // branch data
   const branches = ref("");
   // get event
@@ -73,9 +76,33 @@ export const useGlobalStore = defineStore("globalStore", () => {
   async function getBranchByOrg() {
     try {
       const response = await axios.get(
-        "https://gotest.qspiders.com/backend/api/v1/branches/getAllBranches?organization=jspiders"
+        `${URL}/backend/api/v1/branches/getAllBranches?organization=jspiders`
       );
       branches.value = response?.data.data[0]?.cities;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  // fucntion to post enquiry form
+  async function postEnquiry(apiBody) {
+    try {
+      const response = await axios.post(
+        `${URL}/api/v1/create_enquiry`,
+        apiBody
+      );
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function getPlacementStats() {
+    try {
+      const response = await axios.get(
+        "https://hrstbackend.qspiders.com/placements/website_data_reportSummary/"
+      );
+      placementStats.value = response.data;
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -96,5 +123,8 @@ export const useGlobalStore = defineStore("globalStore", () => {
     hasCourseByIdError,
     getBranchByOrg,
     branches,
+    postEnquiry,
+    getPlacementStats,
+    placementStats,
   };
 });

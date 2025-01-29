@@ -48,7 +48,7 @@
             :href="`${
               menu == 'home'
                 ? uuid
-                : '#' + menu.toLowerCase().trim().replace(' ', '_')
+                : '#' + menu.toLowerCase().trim().replace(/ /g, '_')
             }`"
             class="hover:text-[#F96E2A] px-3 text-sm font-medium capitalize whitespace-nowrap"
             >{{ menu }}</a
@@ -69,7 +69,7 @@
           :href="`${
             menu == 'home'
               ? uuid
-              : '#' + menu.toLowerCase().trim().replace(' ', '_')
+              : '#' + menu.toLowerCase().trim().replace(/ /g, '_')
           }`"
           class="block hover:bg-blue-500 px-3 py-2 rounded-md text-base font-medium capitalize"
           >{{ menu }}</a

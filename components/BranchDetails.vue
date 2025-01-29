@@ -48,9 +48,7 @@
               </button>
             </div>
           </section>
-          <section
-            class="grid grid-cols-1 lg:grid-cols-2 gap-4 bg-[#fff] p-4"
-          >
+          <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 bg-[#fff] p-4">
             <aside class="rounded-lg bg-[#efefef] p-2">
               <!-- Modal body -->
               <div class="p-4 md:p-5">
@@ -63,7 +61,7 @@
                   <template
                     v-for="(branch, index) in branchDetails?.courses[0]
                       ?.branches"
-                    :key="branchId"
+                    :key="index"
                   >
                     <li
                       @click="seeBranchData(branch, index)"
@@ -145,6 +143,7 @@
 <script setup>
 import { ref } from "vue";
 const closeViewBranchDetails = ref("");
+const URL = import.meta.env.VITE_BASE_URL;
 const animateClass = ref("");
 const props = defineProps({
   isBranchDetailsModalOpen: { type: [Boolean], default: false },
