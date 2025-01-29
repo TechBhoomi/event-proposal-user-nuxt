@@ -45,7 +45,10 @@
           />
         </div>
 
-        <div v-if="component.name == 'navbar'" class="sticky top-10 z-50">
+        <div
+          v-if="component.name.toLowerCase() == 'navbar'"
+          class="sticky top-10 z-50"
+        >
           <Navbar
             :menuItems="component.details.map(item => item.data)"
             :uuid="uniqueTemplateId"
@@ -67,12 +70,12 @@
         </div>
 
         <!-- !PLACEMENT STATS -->
-        <!-- <div
-          v-if="component.name === 'Placement Statistics'"
+        <div
+          v-if="component.name.toLowerCase() === 'placement statistics'"
           :id="component.name.trim().replace(' ', '_')"
         >
-          <PlacementStats />
-        </div> -->
+          <PlacementStats :data="placementStats" />
+        </div>
         <!-- !BRANCH DATA -->
         <div
           v-if="component.name.toLowerCase() === 'branch sneak-peek'"
@@ -98,7 +101,7 @@
         </div>
         <!-- !FOOTER -->
         <div
-          v-if="component.name.toLowerCase() === 'location'"
+          v-if="component.name.toLowerCase() === 'footer'"
           :id="component.name.trim().replace(' ', '_')"
         >
           <Footer />
@@ -129,7 +132,8 @@ import { computed } from "vue";
 //import EnquiryFrom from "~/components/EnquiryFrom.vue";
 
 const STORE = useGlobalStore();
-const { count, eventData, isEventApiLoading, apiError } = storeToRefs(STORE);
+const { count, eventData, isEventApiLoading, apiError, placementStats } =
+  storeToRefs(STORE);
 
 const sortedElements = computed(() => {
   return (
@@ -162,6 +166,7 @@ onBeforeMount(async () => {
   uniqueTemplateId.value = uuid;
   router.push(uuid);
   await STORE.getEventData(uuid);
+  await STORE.getPlacementStats();
 });
 </script>
 
