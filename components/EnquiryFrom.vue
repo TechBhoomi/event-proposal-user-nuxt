@@ -75,19 +75,34 @@
 
 <script setup>
 import { ref } from "vue";
-
+import { useGlobalStore } from "~/store/globalStore";
+const STORE = useGlobalStore();
 const name = ref("");
 const email = ref("");
 const mobile = ref("");
 const message = ref("");
 
-const handleSubmit = () => {
-  // Handle form submission logic here
-  console.log("Form submitted:", {
+const handleSubmit = async () => {
+  const apiBody = {
     name: name.value,
     email: email.value,
     mobile: mobile.value,
     message: message.value,
-  });
+  };
+  const response = await STORE.postEnquiry(apiBody);
+  console.log(response, "response");
+  if ([200, 201, 202].includes(response.status)) {
+    name.value = "";
+    email.value = "";
+    mobile.value = "";
+    message.value = "";
+  }
+  // Handle form submission logic here
+  // console.log("Form submitted:", {
+  //   name: name.value,
+  //   email: email.value,
+  //   mobile: mobile.value,
+  //   message: message.value,
+  // });
 };
 </script>
