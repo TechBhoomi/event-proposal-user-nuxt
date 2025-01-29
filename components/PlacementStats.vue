@@ -1,29 +1,33 @@
 <template>
-  <div class="p-2">
+  <div class="p-1 pb-7 lg:pl-7 lg:pr-7 bg-[#EBEBEB] mb-2">
     <section>
-      <h1 class="lg:text-3xl text-xl font-bold">Placement Statistics</h1>
+      <h1 class="lg:text-3xl text-xl font-bold w-full text-center p-1">
+        Placement Statistics
+      </h1>
     </section>
-    <article class="p-2">
-      <section class="lg:flex items-center gap-1">
-        <h2 class="lg:text-lg text-sm font-semibold">Till now we have places 1000+ students</h2>
-        <h2>
-          <a href="" class="text-blue-500 lg:text-base text-sm underline underline-offset-4"
-            >Click here to know more</a
-          >
-        </h2>
-      </section>
-      <section class="lg:flex items-center gap-1">
-        <h2 class="lg:text-lg font-semibold text-sm">1000+ Tie Ups</h2>
-        <h2>
-          <a href="" class="text-blue-500 lg:text-base underline underline-offset-4 text-sm"
-          >Click here to know more</a
-          >
-        </h2>
-      </section>
+    <article class="p-2 stats-container">
+      <div
+        class="grid grid-cols-2 lg:grid-cols-7 gap-9 lg:px-4 px-2 lg:py-20 py-6 content-center"
+      >
+        <div
+          class="lg:w-52 w-full lg:h-24 h-20 transparent-div rounded-xl flex items-center justify-center flex-col"
+          v-for="(stat, name, index) in props.data"
+          :key="index"
+        >
+          <div class="lg:text-lg text-base font-semibold">
+            {{ name?.replace(/_/g, " ")?.toUpperCase() }}
+          </div>
+          <div class="lg:text-2xl text-lg font-bold">{{ stat }}</div>
+        </div>
+      </div>
     </article>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const props = defineProps({
+  data: { type: Array },
+});
+</script>
 
 <style scoped></style>
