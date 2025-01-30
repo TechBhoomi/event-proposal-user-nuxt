@@ -54,7 +54,7 @@
                   class="accordion-header flex items-center cursor-pointer"
                   @click.stop="toggleAccordion(index)"
                 >
-                  <h2 class="text-xl font-semibold text-[#173B45]">
+                  <h2 class="lg:text-xl font-semibold text-[#173B45]">
                     {{ module?.name }}
                   </h2>
                 </div>
@@ -96,8 +96,39 @@
               </div>
             </div>
           </div>
-          <div class="text-2xl font-bold text-red-500 animate-browseInt p-5" v-else>
+          <div
+            class="text-2xl font-bold text-red-500 animate-browseInt p-5"
+            v-else
+          >
             <h2>No data found for this course!</h2>
+          </div>
+          <div
+            class="absolute bottom-4 right-0"
+            v-if="subjectData[0]?.topics?.length"
+          >
+            <button
+              @click="
+                generateAndDownloadPDF(subjectData[0]?.topics, subjectData[0])
+              "
+              type="button"
+              class="px-2 py-2 bg-blue-600 rounded-md text-white outline-none focus:ring-4 shadow-lg transform active:scale-x-75 transition-transform mx-5 flex"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                />
+              </svg>
+
+              <span class="ml-2">Download</span>
+            </button>
           </div>
         </div>
       </div>
@@ -121,6 +152,78 @@ const emit = defineEmits(["closeSubTopicModal"]);
 const closeModal = () => {
   emit("closeSubTopicModal");
 };
+
+import { useNuxtApp } from "#app";
+
+const { $pdf } = useNuxtApp();
+
+const generateAndDownloadPDF = async (subjects, course_name) => {
+  try {
+    // Initialize a new PDF document
+    $pdf.new({
+      margins: { top: 20, bottom: 20, left: 20, right: 20 },
+      size: "A4",
+    });
+    $pdf.add([
+      {
+        raw: course_name?.name,
+        text: { fontSize: 26, fontWeight: "bold" },
+        alignment: "center",
+      },
+      { lineBreak: {} }, // Adds a line break after the title
+    ]);
+    subjects.forEach(item => {
+      console.log(item, "item");
+      // Create an array for the main topic
+      const mainTopic = [
+        { raw: item.name, text: { fontSize: 20, fontWeight: "bold" } },
+      ];
+      // Map subtopics to an array of PDF entries
+      const subtopics =
+        item?.subtopics &&
+        item?.subtopics.length > 0 &&
+        item?.subtopics?.map(subtopic => ({
+          raw: subtopic.name,
+          text: { fontSize: 14, fontWeight: "light" },
+        }));
+
+      const spaces = [{ raw: "\n\n" }];
+      // Combine main topic and subtopics
+      if (subtopics && subtopics.length > 0) {
+        let pdfEntries = [...mainTopic, ...subtopics, ...spaces];
+        $pdf.add(pdfEntries);
+      } else {
+        let pdfEntries = [...mainTopic, ...spaces];
+        $pdf.add(pdfEntries);
+      }
+      // Add the combined entries to the PDF
+    });
+
+    // Generate the PDF and obtain the Blob URL
+    const blobUrl = await $pdf.run({
+      type: "client",
+      clientEmit: "blob",
+    });
+
+    // Create a temporary link to trigger the download
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    link.download = course_name.name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+  }
+};
+
+const headingStyles = computed(() => {
+  return "p-2 font-bold text-base bg-[#FF8343] rounded-sm text-[#FFFF]";
+});
+const courseBlock = computed(
+  () =>
+    "h-[32vh] sm:h-[40vh] md:h-[40vh] xs:h-[40vh] overflow-auto p-2 bg-[#fff]"
+);
 
 // Manage accordion open state
 const activeIndex = ref(null);
