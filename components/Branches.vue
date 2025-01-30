@@ -24,7 +24,7 @@
         >
           <div class="flex items-center">
             <svg
-              class="lg:h-6 h-4 text-gray-800 dark:text-white group-hover:animate-flyin"
+              class="lg:h-6 h-4 text-gray-800 group-hover:animate-flyin"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"

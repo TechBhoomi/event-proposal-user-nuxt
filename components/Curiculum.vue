@@ -10,16 +10,34 @@
     <article
       class="p-2 flex items-center justify-center flex-col bg-[#EBEBEB] mb-2"
     >
-      <div class="text-2xl font-bold">What are you Looking for?</div>
-      <div class="flex flex-wrap gap-2 p-4 mx-0">
-        <section
+      <div class="text-2xl font-bold">Our Popular Courses</div>
+      <div
+        class="grid lg:grid-cols-4 lg:gap-4 xl:grid-cols-5 xl:gap-4 2xl:grid-cols-5 2xl:gap-8 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 p-4 gap-4 mx-0"
+      >
+        <div
           v-for="sub in courseData"
-          @click="getCourseID(sub)"
           :key="sub"
-          class="bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold me-2 px-4 lg:py-1 py-1 dark:bg-gray-700 dark:text-blue-400 border rounded-md border-blue-400 inline-flex items-center justify-center cursor-pointer lg:text-lg text-sm"
+          class="bg-white font-semibold text-center rounded-2xl border shadow-lg p-3 lg:max-w-[2-rem] flex items-center justify-between flex-col"
         >
-          {{ sub?.title }}
-        </section>
+          <img
+            class="mb-3 h-24 rounded-md mx-auto"
+            :src="sub?.icon"
+            alt="course"
+          />
+          <h1 class="text-lg text-gray-700 font-bold">
+            {{ sub?.title }}
+          </h1>
+          <p class="text-sm text-gray-400 mt-2 text-justify basis-[70%]">
+            {{ sub?.description }}
+          </p>
+          <button
+            @click="getCourseID(sub)"
+            type="button"
+            class="px-5 py-3 text-xs font-medium text-center text-white rounded-lg bg-[#F96E2A]"
+          >
+            Learn More
+          </button>
+        </div>
       </div>
     </article>
   </section>

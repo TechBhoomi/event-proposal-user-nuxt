@@ -7,18 +7,21 @@
     </section>
     <article class="p-2 stats-container">
       <div
-        class="grid grid-cols-2 lg:grid-cols-7 gap-9 lg:px-4 px-2 lg:py-20 py-6 content-center"
+        class="grid grid-cols-2 gap-4 md:grid-cols-5 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5"
       >
-        <div
-          class="lg:w-52 w-full lg:h-24 h-20 transparent-div rounded-xl flex items-center justify-center flex-col"
-          v-for="(stat, name, index) in props.data"
-          :key="index"
-        >
-          <div class="lg:text-lg text-base font-semibold">
-            {{ name?.replace(/_/g, " ")?.toUpperCase() }}
+        <template v-for="(stat, name, index) in props.data" :key="index">
+          <div
+            v-if="
+              name.toLowerCase() != 'yop' && name.toLowerCase() != 'yop_count'
+            "
+            class="transparent-div rounded-xl flex items-center justify-center flex-col px-3 py-3 md:py-7 md:px-4 xl:px-8 xl:py-6 lg:py-5 lg:px-5"
+          >
+            <div class="lg:text-lg text-base font-semibold">
+              {{ name?.replace(/_/g, " ")?.toUpperCase() }}
+            </div>
+            <div class="lg:text-2xl text-lg font-bold">{{ stat }}</div>
           </div>
-          <div class="lg:text-2xl text-lg font-bold">{{ stat }}</div>
-        </div>
+        </template>
       </div>
     </article>
   </div>
