@@ -19,7 +19,7 @@
               class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
             >
               <h3
-                class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white"
+                class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white font-lexend"
               >
                 Branches in {{ cityName }}
               </h3>
@@ -53,7 +53,7 @@
               <!-- Modal body -->
               <div class="p-4 md:p-5">
                 <p
-                  class="text-gray-500 dark:text-gray-400 mb-4 text-sm md:text-base"
+                  class="text-gray-500 dark:text-gray-400 mb-4 text-sm md:text-base font-sans"
                 >
                   Select your desired location:
                 </p>
@@ -68,7 +68,7 @@
                       class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500"
                       :class="activeClass(index)"
                     >
-                      <h2 class="font-semibold text-sm md:text-base">
+                      <h2 class="font-semibold text-sm md:text-base font-sans">
                         {{ branch.branchName.toUpperCase() }}
                       </h2>
                     </li>
@@ -81,31 +81,31 @@
                 <table class="w-full text-sm md:text-base">
                   <tbody>
                     <!-- Branch Name -->
-                    <tr>
+                    <tr class="font-sans font-medium">
                       <td
-                        class="pr-4 pb-2 text-start font-semibold whitespace-nowrap"
+                        class="pr-4 pb-2 text-start font-bold whitespace-nowrap"
                       >
                         Branch Name:
                       </td>
-                      <td class="pb-2">
+                      <td class="pb-2 font-sans">
                         {{ branchData?.branchName?.toUpperCase() }}
                       </td>
                     </tr>
                     <!-- Address -->
                     <tr>
                       <td
-                        class="pr-4 pb-2 text-start font-semibold whitespace-nowrap"
+                        class="pr-4 pb-2 text-start  font-bold whitespace-nowrap"
                       >
                         Address:
                       </td>
-                      <td class="pb-2">
+                      <td class="pb-2 font-sans font-medium">
                         {{ branchData?.street }}
                       </td>
                     </tr>
                     <!-- Google Maps -->
                     <tr>
                       <td
-                        class="pr-4 pb-2 text-start font-semibold whitespace-nowrap"
+                        class="pr-4 pb-2 text-start  font-bold whitespace-nowrap"
                       >
                         Google Maps:
                       </td>
