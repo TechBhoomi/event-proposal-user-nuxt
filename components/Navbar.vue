@@ -1,16 +1,20 @@
 <template>
   <nav
-    class="bg-[#EEEEEE] text-[#2F3645] border-b-[0.1rem] border-b-[#2f36454f]"
+    class="bg-[#F96E2A] text-[#2F3645] border-b-[0.1rem] border-b-[#2f36454f] w-full p-2"
   >
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="flex items-center lg:justify-end justify-between lg:h-10 h-10"
+        class="flex items-center justify-between lg:h-10 h-10 w-full"
       >
-        <!-- Brand -->
-        <div class="flex items-center">
-          <a href="#" class="lg:text-2xl text-base font-bold lg:hidden">Menu</a>
+        <div class="">
+          <a href="#" class="sm:text-base lg:text-2xl font-bold lg:pl-4 pl-2">
+            Q-Spiders
+          </a>
         </div>
-
+        <!-- Brand -->
+        <!-- <div class="flex items-center">
+          <a href="#" class="lg:text-2xl text-base font-bold lg:hidden">Menu</a>
+        </div> -->
         <!-- Hamburger Menu -->
         <div class="flex lg:hidden">
           <button @click="toggleMenu">
@@ -50,7 +54,7 @@
                 ? uuid
                 : '#' + menu.toLowerCase().trim().replace(/ /g, '_')
             }`"
-            class="hover:text-[#F96E2A] px-3 text-sm font-medium capitalize whitespace-nowrap"
+            class="px-3 text-sm font-medium capitalize whitespace-nowrap"
             >{{ menu }}</a
           >
         </div>
