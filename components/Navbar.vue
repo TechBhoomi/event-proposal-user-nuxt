@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="bg-[#F96E2A] text-[#2F3645] border-b-[0.1rem] border-b-[#2f36454f] w-full p-2"
+    class="bg-[#f5861f] text-[#2F3645] border-b-[0.1rem] border-b-[#2f36454f] w-full p-2"
   >
     <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between lg:h-10 h-10 w-full">

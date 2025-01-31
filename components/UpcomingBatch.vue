@@ -6,8 +6,8 @@
     <div class="shadow-md rounded-lg overflow-auto">
       <table class="w-full text-left">
         <thead
-          class="uppercase bg-[#FF8343] text-white"
-          style="background-color: #ff8343; color: #fff"
+          class="uppercase bg-[#f5861f] text-white"
+          style="background-color: #f5861f; color: #fff"
         >
           <tr>
             <!--[-->

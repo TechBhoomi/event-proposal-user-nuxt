@@ -11,7 +11,9 @@
       class="flex items-center justify-center flex-col bg-[#EBEBEB] p-4 mb-2"
     >
       <div class="p-1 w-full flex items-center justify-center sm:border-2">
-        <div class="text-3xl p-2 font-bold font-lexend text-center">Our Branches and Locations</div>
+        <div class="text-3xl p-2 font-bold font-lexend text-center">
+          Our Branches and Locations
+        </div>
       </div>
       <div
         class="grid grid-cols-2 lg:grid-cols-6 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-4 gap-3 w-full p-3 mx-0"
@@ -20,7 +22,7 @@
           v-for="(city, index) in branches"
           :key="index"
           @click="openBranchDetails(city)"
-          class="group flex flex-col bg-[#FFC89C] border-[#ff8343] border-2 shadow-sm rounded-lg w-full p-3 xl:p-5 2xl:p-5 cursor-pointer"
+          class="group flex flex-col bg-[#FFC89C] border-[#f5861f] border-2 shadow-sm rounded-lg w-full p-3 xl:p-5 2xl:p-5 cursor-pointer"
         >
           <div class="flex items-center">
             <svg
@@ -37,12 +39,13 @@
               />
             </svg>
 
-            <h5 class="ml-3 text-slate-800 lg:text-xl text-sm font-semibold font-lexend">
+            <h5
+              class="ml-3 text-slate-800 lg:text-xl text-sm font-semibold font-lexend"
+            >
               {{ city.cityName }}
             </h5>
           </div>
-          <div>
-          </div>
+          <div></div>
         </div>
       </div>
     </article>

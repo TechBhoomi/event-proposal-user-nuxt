@@ -3,14 +3,14 @@
     <div
       id="crypto-modal"
       tabindex="-1"
-      class="overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 max-h-full flex items-center justify-center rounded-lg lg:p-6 shadow-lg backdrop-blur-sm bg-[#00000033] animate-browseInt"
+      class="overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 max-h-full flex items-center justify-center rounded-lg lg:p-6 shadow-lg backdrop-blur-sm animate-browseInt"
     >
       <div class="relative p-4 lg:w-3/4 w-full max-h-full">
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow">
           <!-- Modal header -->
           <div
-            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 gap-2"
+            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t gap-2"
           >
             <h3 class="text-xl font-bold text-gray-900 dark:text-white">
               {{ courseName }}
@@ -18,7 +18,7 @@
             <button
               type="button"
               @click="closeModal"
-              class="bg-gray-200 text-red-500 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              class="bg-gray-200 text-red-500 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center"
               data-modal-toggle="crypto-modal"
             >
               <svg
@@ -69,11 +69,11 @@
                         <span>
                           <svg
                             class="h-3 w-3"
-                            fill="#FF8343"
+                            fill="#f5861f"
                             viewBox="0 0 256 256"
                             id="Flat"
                             xmlns="http://www.w3.org/2000/svg"
-                            stroke="#FF8343"
+                            stroke="#f5861f"
                           >
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g
@@ -218,7 +218,7 @@ const generateAndDownloadPDF = async (subjects, course_name) => {
 };
 
 const headingStyles = computed(() => {
-  return "p-2 font-bold text-base bg-[#FF8343] rounded-sm text-[#FFFF]";
+  return "p-2 font-bold text-base bg-[#f5861f] rounded-sm text-[#FFFF]";
 });
 const courseBlock = computed(
   () =>
@@ -249,8 +249,8 @@ const closeIcon = "Close";
   border: 2px solid transparent;
   transition: all 150ms ease-in-out;
 }
-.accordion-item:hover{
-  border: 2px solid #f5a25d;
+.accordion-item:hover {
+  border: 2px solid #f5861f;
 }
 
 .accordion-header {
