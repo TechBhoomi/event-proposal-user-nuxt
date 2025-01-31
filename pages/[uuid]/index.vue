@@ -34,7 +34,7 @@
     <template v-else>
       <template v-for="component in sortedElements" :key="component.id">
         <!-- !THIS IS NOT WORKING AS EXPECTED IF INCLUDED INSIDE THIS SECTION -->
-        <div
+        <!-- <div
           v-if="component.name.toLowerCase() == 'header'"
           class="sticky top-0 z-50"
         >
@@ -43,11 +43,11 @@
             title="Qspiders"
             :tagline="component?.details[0]?.data"
           />
-        </div>
+        </div> -->
 
         <div
           v-if="component.name.toLowerCase() == 'navbar'"
-          class="sticky top-10 z-50"
+          class="sticky top-0 z-50"
         >
           <Navbar
             :menuItems="component.details.map(item => item.data)"
