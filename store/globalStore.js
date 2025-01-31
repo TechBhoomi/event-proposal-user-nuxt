@@ -14,10 +14,11 @@ export const useGlobalStore = defineStore("globalStore", () => {
   const courseByID = ref([]);
   const getCourseByIdLoading = ref(false);
   const hasCourseByIdError = ref(false);
-  // placment stats
+  // placement stats
   const placementStats = ref([]);
   const isPlacementDataLoading = ref(false);
   const hasPlacementStatsError = ref(false);
+  const userName = ref("");
   // branch data
   const branches = ref("");
   // get event
@@ -32,6 +33,7 @@ export const useGlobalStore = defineStore("globalStore", () => {
       eventData.value = [];
       const response = await axios.get(url);
       eventData.value = await response.data.data;
+      userName.value = response.data?.data[0]?.name;
       if (response.data.data.length < 1) {
         apiError.value = true;
       }
@@ -76,7 +78,7 @@ export const useGlobalStore = defineStore("globalStore", () => {
   async function getBranchByOrg() {
     try {
       const response = await axios.get(
-        `${URL}/backend/api/v1/branches/getAllBranches?organization=jspiders`
+        `https://golang.qspiders.com/backend/api/v1/branches/getAllBranches?organization=jspiders`
       );
       branches.value = response?.data.data[0]?.cities;
     } catch (error) {
@@ -126,5 +128,6 @@ export const useGlobalStore = defineStore("globalStore", () => {
     postEnquiry,
     getPlacementStats,
     placementStats,
+    userName,
   };
 });
