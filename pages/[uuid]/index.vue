@@ -33,18 +33,7 @@
 
     <template v-else>
       <template v-for="component in sortedElements" :key="component.id">
-        <!-- !THIS IS NOT WORKING AS EXPECTED IF INCLUDED INSIDE THIS SECTION -->
-        <!-- <div
-          v-if="component.name.toLowerCase() == 'header'"
-          class="sticky top-0 z-50"
-        >
-          <NavHeader
-            class="sticky top-0"
-            title="Qspiders"
-            :tagline="component?.details[0]?.data"
-          />
-        </div> -->
-
+        <!--! NAVBAR -->
         <div
           v-if="component.name.toLowerCase() == 'navbar'"
           class="sticky top-0 z-50"
@@ -62,13 +51,23 @@
         >
           <Carousel :images="component.details.map(item => item.data)" />
         </div>
+        <!-- !COURSE / CURRICULUM -->
         <div
           v-if="component.name?.toLowerCase() === 'curriculum'"
           :id="component.name?.toLowerCase().trim().replace(' ', '_')"
         >
           <Curiculum />
         </div>
-
+        <!-- !GREETING -->
+        <div
+          v-if="component.name?.toLowerCase() === 'greeting'"
+          :id="component.name?.toLowerCase().trim().replace(' ', '_')"
+        >
+          <Greeting
+            :data="component.details.map(item => item.data)"
+            :userName="userName"
+          />
+        </div>
         <!-- !PLACEMENT STATS -->
         <div
           v-if="component.name.toLowerCase() === 'placement statistics'"
@@ -132,17 +131,23 @@ import { computed } from "vue";
 //import EnquiryFrom from "~/components/EnquiryFrom.vue";
 
 const STORE = useGlobalStore();
-const { count, eventData, isEventApiLoading, apiError, placementStats } =
-  storeToRefs(STORE);
+const {
+  count,
+  eventData,
+  isEventApiLoading,
+  apiError,
+  placementStats,
+  userName,
+} = storeToRefs(STORE);
 
 const sortedElements = computed(() => {
   return (
     eventData.value.length > 0 &&
     eventData.value[0]?.template?.template[0]?.elements?.sort((a, b) => {
       const positionOrder = [
-        "header-top",
-        "header-bottom",
+        "Header",
         "Cover",
+        "Greeting",
         "Body-Top",
         "Body-Center",
         "Body-Bottom",
@@ -156,7 +161,7 @@ const sortedElements = computed(() => {
   );
 });
 
-console.log(sortedElements.value, "sortedElements");
+// console.log(sortedElements.value, "sortedElements");
 
 const route = useRoute();
 const router = useRouter();
@@ -168,6 +173,9 @@ onBeforeMount(async () => {
   await STORE.getEventData(uuid);
   await STORE.getPlacementStats();
 });
+onMounted(() => {
+  console.log(userName)
+})
 </script>
 
 <style scoped>
