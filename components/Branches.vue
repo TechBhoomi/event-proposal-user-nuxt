@@ -11,7 +11,7 @@
       class="flex items-center justify-center flex-col bg-[#EBEBEB] p-4 mb-2"
     >
       <div class="p-1 w-full flex items-center justify-center sm:border-2">
-        <div class="text-2xl font-bold">Our Branches and Locations</div>
+        <div class="text-3xl p-2 font-bold font-lexend text-center">Our Branches and Locations</div>
       </div>
       <div
         class="grid grid-cols-2 lg:grid-cols-6 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-4 gap-3 w-full p-3 mx-0"
@@ -37,30 +37,11 @@
               />
             </svg>
 
-            <h5 class="ml-3 text-slate-800 lg:text-xl text-sm font-semibold">
+            <h5 class="ml-3 text-slate-800 lg:text-xl text-sm font-semibold font-lexend">
               {{ city.cityName }}
             </h5>
           </div>
           <div>
-            <!-- <p
-            class="text-slate-800 font-semibold text-sm hover:underline flex items-center cursor-pointer"
-          >
-            Learn More
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="ml-2 h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
-          </p> -->
           </div>
         </div>
       </div>
