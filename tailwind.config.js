@@ -60,6 +60,10 @@ module.exports = {
         flyin: "fly-in 0.6s ease-in-out 0.25s 1",
         browsein: "browse-in 0.4s ease-in-out 0.25s 1",
       },
+      fontFamily: {
+        sans: ["Open Sans", "sans-serif"],
+        lexend: ["Lexend", "sans-serif"],
+      },
     },
   },
   plugins: [],
