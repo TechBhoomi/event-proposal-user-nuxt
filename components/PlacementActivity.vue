@@ -6,7 +6,7 @@
       </h1>
     </section>
     <section>
-      <div class="grid lg:grid-cols-4 grid-cols-3 px-2.5 py-2.5 gap-4">
+      <div class="grid lg:grid-cols-4 grid-cols-2 px-2.5 py-2.5 gap-4">
         <div
         class="overflow-hidden"
           v-for="(image, imageIndex) in images"
