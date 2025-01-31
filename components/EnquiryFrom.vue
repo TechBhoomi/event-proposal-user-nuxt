@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-gray-200 flex items-center justify-center p-4">
-    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-      <h2 class="text-2xl font-bold mb-6 text-center">Enquiry Form</h2>
+  <div class="bg-gray-200 p-4 mb-2">
+    <h2 class="text-3xl p-2 font-bold font-lexend text-center">Enquiry Form</h2>
+    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md m-auto">
       <form @submit.prevent="handleSubmit">
         <!-- Name -->
         <div class="mb-4">
@@ -63,7 +63,7 @@
         <div>
           <button
             type="submit"
-            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#F96E2A] focus:ring-offset-2"
           >
             Submit
           </button>
