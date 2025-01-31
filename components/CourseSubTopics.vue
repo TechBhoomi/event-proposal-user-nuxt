@@ -246,6 +246,11 @@ const closeIcon = "Close";
   margin-bottom: 8px;
   padding: 8px 16px;
   background: #f9f9f9;
+  border: 2px solid transparent;
+  transition: all 150ms ease-in-out;
+}
+.accordion-item:hover{
+  border: 2px solid #f5a25d;
 }
 
 .accordion-header {
