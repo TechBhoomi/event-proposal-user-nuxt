@@ -40,10 +40,10 @@
           <button
             @click="getCourseID(sub)"
             type="button"
-            class="relative inline-flex items-center justify-center px-3.5 py-2 overflow-hidden font-medium text-[#F96E2A] transition duration-300 ease-out border-2 border-[#F96E2A] rounded-lg shadow-md group"
+            class="relative inline-flex items-center justify-center px-3.5 py-2 overflow-hidden font-medium text-[#f5861f] transition duration-300 ease-out border-2 border-[#f5861f] rounded-lg shadow-md group"
           >
             <span
-              class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-[#F96E2A] group-hover:translate-x-0 ease"
+              class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-[#f5861f] group-hover:translate-x-0 ease"
             >
               <svg
                 class="w-6 h-6"
@@ -144,7 +144,7 @@ const generateAndDownloadPDF = async (subjects, course_name) => {
 };
 
 const headingStyles = computed(() => {
-  return "p-2 font-bold text-base bg-[#FF8343] rounded-sm text-[#FFFF]";
+  return "p-2 font-bold text-base bg-[#f5861f] rounded-sm text-[#FFFF]";
 });
 const courseBlock = computed(
   () =>
