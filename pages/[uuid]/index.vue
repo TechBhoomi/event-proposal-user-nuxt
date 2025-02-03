@@ -32,11 +32,15 @@
     <!--!IDLE STATE -->
 
     <template v-else>
-      <template v-for="component in sortedElements" :key="component.id">
+      <template
+        v-for="(component, index) in sortedElements"
+        :key="component.id"
+      >
         <!--! NAVBAR -->
         <div
           v-if="component.name.toLowerCase() == 'navbar'"
           class="sticky top-0 z-50"
+          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
         >
           <Navbar
             :menuItems="component.details.map(item => item.data)"
@@ -48,6 +52,7 @@
           v-if="component.name?.toLowerCase() === 'carousel'"
           :id="component.name?.toLowerCase().trim().replace(' ', '_')"
           class="flex items-center justify-center p-2"
+          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
         >
           <Carousel :images="component.details.map(item => item.data)" />
         </div>
@@ -55,6 +60,7 @@
         <div
           v-if="component.name?.toLowerCase() === 'curriculum'"
           :id="component.name?.toLowerCase().trim().replace(' ', '_')"
+          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
         >
           <Curiculum />
         </div>
@@ -62,6 +68,7 @@
         <div
           v-if="component.name?.toLowerCase() === 'greeting'"
           :id="component.name?.toLowerCase().trim().replace(' ', '_')"
+          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
         >
           <Greeting
             :data="component.details.map(item => item.data)"
@@ -72,13 +79,15 @@
         <div
           v-if="component.name.toLowerCase() === 'placement statistics'"
           :id="component.name.trim().replace(' ', '_')"
+          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
         >
           <PlacementStats :data="placementStats" />
         </div>
         <!-- !BRANCH DATA -->
         <div
-          v-if="component.name.toLowerCase() === 'branch sneak-peek'"
+          v-if="component.name.toLowerCase() === 'branches'"
           :id="component.name?.toLowerCase().trim().replace(' ', '_')"
+          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
         >
           <Branches />
         </div>
@@ -86,6 +95,7 @@
         <div
           v-if="component.name.toLowerCase() === 'placement activities'"
           :id="component.name.toLowerCase().trim().replace(' ', '_')"
+          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
         >
           <PlacementActivity
             :images="component.details.map(item => item.data)"
@@ -95,31 +105,18 @@
         <div
           v-if="component.name?.toLowerCase() === 'enquiry form'"
           :id="component.name.trim().replace(' ', '_')"
+          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
         >
           <EnquiryFrom />
         </div>
         <!-- !FOOTER -->
         <div
+          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
           v-if="component.name.toLowerCase() === 'footer'"
           :id="component.name.trim().replace(' ', '_')"
         >
           <Footer />
         </div>
-
-        <!--!UPCOMING BATCHES -->
-        <!-- <div
-          v-if="component.name === 'Upcoming Batches'"
-          :id="component.name.trim().replace(' ', '_')"
-        >
-          <UpcminingBatches />
-        </div> -->
-
-        <!-- <Curiculum />
-      <UpcomingBatch />
-      <PlacementStats />
-      <PlacementActivity />
-      <OtherCoursesAndBranches />
-      <Footer />  -->
       </template>
     </template>
   </section>
@@ -128,7 +125,6 @@
 <script setup>
 import { useGlobalStore } from "@/store/globalStore";
 import { computed } from "vue";
-//import EnquiryFrom from "~/components/EnquiryFrom.vue";
 
 const STORE = useGlobalStore();
 const {
@@ -173,9 +169,14 @@ onBeforeMount(async () => {
   await STORE.getEventData(uuid);
   await STORE.getPlacementStats();
 });
-onMounted(() => {
-  console.log(userName)
-})
+
+definePageMeta({
+  title:"Qspiders",
+});
+
+useHead({
+  title:"Qspiders",
+});
 </script>
 
 <style scoped>
