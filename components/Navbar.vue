@@ -9,7 +9,7 @@
             href="#"
             class="sm:text-base lg:text-2xl font-bold lg:pl-4 pl-2 text-white font-lexend"
           >
-            Q-Spiders
+            QSpiders
           </a>
         </div>
         <!-- Brand -->
