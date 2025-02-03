@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#EBEBEB] rounded-md p-2 flex flex-col">
+  <div class="rounded-md p-2 flex flex-col">
     <section class="w-full">
       <h1 class="text-3xl p-2 font-bold font-lexend text-center">
         Placement Activities
