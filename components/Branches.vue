@@ -8,9 +8,9 @@
       :cityName="cityName"
     />
     <article
-      class="flex items-center justify-center flex-col bg-[#EBEBEB] p-4 mb-2"
+      class="flex items-center justify-center flex-col p-4 mb-2"
     >
-      <div class="p-1 w-full flex items-center justify-center sm:border-2">
+      <div class="p-1 w-full flex items-center justify-center">
         <div class="text-3xl p-2 font-bold font-lexend text-center">
           Our Branches and Locations
         </div>
@@ -45,7 +45,7 @@
               {{ city.cityName }}
             </h5>
           </div>
-          <div></div>
+          
         </div>
       </div>
     </article>

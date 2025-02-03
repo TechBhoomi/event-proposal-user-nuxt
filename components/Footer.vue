@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flex flex-col w-full h-fit bg-[#374151] text-[#e5e7eb] px-16 py-5"
-  >
+  <div class="flex flex-col w-full h-fit text-[#e5e7eb] px-16 py-5">
     <div class="flex flex-row">
       <div class="flex flex-col gap-2 justify-center w-full">
         <div class="grid grid-cols-3 gap-6 mx-auto p-4">
@@ -51,7 +49,6 @@
 
 <script setup>
 import { ref } from "vue";
-
 </script>
 
 <style scoped></style>

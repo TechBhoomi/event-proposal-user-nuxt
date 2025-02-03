@@ -6,6 +6,15 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "vue3-carousel-nuxt",
     "nuxt-pdfeasy",
+    "notivue/nuxt",
   ],
-  css: ["~/assets/css/tailwind.css", "~/assets/css/index.css"],
+  notivue: {
+    position: "top-right",
+  },
+  css: [
+    "~/assets/css/tailwind.css",
+    "~/assets/css/index.css",
+    "notivue/notification.css",
+    "notivue/animations.css",
+  ],
 });

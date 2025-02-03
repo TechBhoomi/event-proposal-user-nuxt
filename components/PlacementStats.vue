@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 pb-7 lg:pl-7 lg:pr-7 bg-[#EBEBEB] mb-2">
+  <div class="p-1 pb-7 lg:pl-7 lg:pr-7 mb-2">
     <section>
       <h1 class="text-3xl p-2 font-bold font-lexend text-center">
         Placement Statistics

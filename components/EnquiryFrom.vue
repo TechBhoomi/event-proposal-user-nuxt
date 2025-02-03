@@ -1,5 +1,10 @@
 <template>
-  <div class="bg-gray-200 p-4 mb-2">
+  <div class="p-4 mb-2">
+    <section>
+      <Notivue v-slot="item" :position="toastPosition" :theme="materialTheme">
+        <Notification :item="item" />
+      </Notivue>
+    </section>
     <h2 class="text-3xl p-2 font-bold font-lexend text-center">Enquiry Form</h2>
     <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md m-auto">
       <form @submit.prevent="handleSubmit">
@@ -81,7 +86,6 @@ const name = ref("");
 const email = ref("");
 const mobile = ref("");
 const message = ref("");
-
 const handleSubmit = async () => {
   const apiBody = {
     name: name.value,
@@ -89,13 +93,16 @@ const handleSubmit = async () => {
     mobile: mobile.value,
     message: message.value,
   };
+  const toastPosition = ref("top-right");
   const response = await STORE.postEnquiry(apiBody);
-  console.log(response, "response");
   if ([200, 201, 202].includes(response.status)) {
-    name.value = "";
-    email.value = "";
-    mobile.value = "";
-    message.value = "";
+    // name.value = "";
+    // email.value = "";
+    // mobile.value = "";
+    // message.value = "";
+    push.success("Enquiry form submitted successfully!",{ timeout: 100 });
+  } else {
+    push.error("Something went wrong please try again!");
   }
   // Handle form submission logic here
   // console.log("Form submitted:", {

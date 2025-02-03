@@ -12,7 +12,7 @@
           <div
             class="flex items-center justify-between p-4 md:p-5 border-b rounded-t gap-2"
           >
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+            <h3 class="text-xl font-bold text-gray-900">
               {{ courseName }}
             </h3>
             <button

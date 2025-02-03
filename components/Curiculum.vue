@@ -8,7 +8,7 @@
       :courseName="courseName"
     />
     <article
-      class="p-2 flex items-center justify-center flex-col bg-[#EBEBEB] mb-2"
+      class="p-2 flex items-center justify-center flex-col mb-2"
     >
       <div class="text-3xl p-2 font-bold font-lexend">Our Popular Courses</div>
       <div
