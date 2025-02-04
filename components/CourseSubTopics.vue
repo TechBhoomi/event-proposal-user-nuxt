@@ -12,7 +12,7 @@
           <div
             class="flex items-center justify-between p-4 md:p-5 border-b rounded-t gap-2"
           >
-            <h3 class="text-xl font-bold text-gray-900">
+            <h3 class="text-xl lg:text-2xl font-bold text-[#f5861f]">
               {{ courseName }}
             </h3>
             <button
@@ -42,17 +42,17 @@
           <!-- Modal body -->
           <div
             class="p-4 md:p-5 overflow-y-auto h-[calc(100vh-10rem)]"
-            v-if="subjectData[0]?.topics?.length"
+            v-if="subjectData?.length"
           >
             <div class="accordion">
               <div
-                v-for="(module, index) in subjectData[0]?.topics || []"
+                v-for="(module, index) in subjectData || []"
                 :key="index"
                 class="accordion-item"
               >
                 <div
                   class="accordion-header flex items-center cursor-pointer"
-                  @click.stop="toggleAccordion(index)"
+                  @click="toggleAccordion(index)"
                 >
                   <h2 class="lg:text-xl font-semibold text-[#173B45]">
                     {{ module?.name }}
@@ -61,11 +61,18 @@
                 <div v-if="isOpen(index)" class="accordion-content mt-2">
                   <ul class="pl-7">
                     <li
-                      v-for="sub in module?.subtopics"
+                      v-for="(sub, subIn) in module?.topics"
+                      @click="
+                        event => {
+                          event.preventDefault();
+                          event.stopPropagation();
+                          toggleSubTopics(subIn);
+                        }
+                      "
                       :key="sub"
-                      class="topics text-base font-medium cursor-default"
+                      class="topics text-base font-medium cursor-default bg-[#EFEFEF] mb-1 rounded-md"
                     >
-                      <div class="flex items-center gap-2">
+                      <div class="flex items-center gap-2 bg-[#FFE6C9] p-1">
                         <span>
                           <svg
                             class="h-3 w-3"
@@ -88,8 +95,41 @@
                             </g>
                           </svg>
                         </span>
-                        <span> {{ sub?.name }}</span>
+                        <span class="cursor-pointer">
+                          {{ sub?.name }}
+                        </span>
                       </div>
+                      <ul
+                        v-if="isSubTopicOpen(subIn)"
+                        class="bg-[#efefef] ml-2"
+                      >
+                        <li v-for="(subT, ind) in sub.subtopics" :key="ind">
+                          <div class="flex gap-2 items-center">
+                            <span>
+                              <svg
+                                class="h-4 w-4"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g
+                                  id="SVGRepo_tracerCarrier"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                ></g>
+                                <g id="SVGRepo_iconCarrier">
+                                  <path
+                                    d="M9.71069 18.2929C10.1012 18.6834 10.7344 18.6834 11.1249 18.2929L16.0123 13.4006C16.7927 12.6195 16.7924 11.3537 16.0117 10.5729L11.1213 5.68254C10.7308 5.29202 10.0976 5.29202 9.70708 5.68254C9.31655 6.07307 9.31655 6.70623 9.70708 7.09676L13.8927 11.2824C14.2833 11.6729 14.2833 12.3061 13.8927 12.6966L9.71069 16.8787C9.32016 17.2692 9.32016 17.9023 9.71069 18.2929Z"
+                                    fill="#f5861f"
+                                  ></path>
+                                </g>
+                              </svg>
+                            </span>
+                            <span> {{ subT?.name }} </span>
+                          </div>
+                        </li>
+                      </ul>
                     </li>
                   </ul>
                 </div>
@@ -102,7 +142,7 @@
           >
             <h2>No data found for this course!</h2>
           </div>
-          <div
+          <!-- <div
             class="absolute bottom-4 right-0"
             v-if="subjectData[0]?.topics?.length"
           >
@@ -129,7 +169,7 @@
 
               <span class="ml-2">Download</span>
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -229,10 +269,18 @@ const courseBlock = computed(
 const activeIndex = ref(null);
 
 const toggleAccordion = index => {
+  console.log("parent");
   activeIndex.value = activeIndex.value === index ? null : index;
 };
 
 const isOpen = index => activeIndex.value === index;
+
+const activeSubIndex = ref(null);
+const toggleSubTopics = index => {
+  console.log("asdasd");
+  activeSubIndex.value = activeSubIndex.value === index ? null : index;
+};
+const isSubTopicOpen = index => activeSubIndex.value === index;
 
 // Icons for open/close
 const openIcon = "Open";
