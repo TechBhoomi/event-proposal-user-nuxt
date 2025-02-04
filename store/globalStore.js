@@ -48,7 +48,7 @@ export const useGlobalStore = defineStore("globalStore", () => {
   async function getCourse() {
     try {
       const response = await axios.get(
-        "https://golang.qspiders.com/backend/api/v1/categories/getAllCategories?organization=jspiders"
+        "https://golang.qspiders.com/backend/api/v1/categories/getAllCategories?organization=qspiders"
       );
       courseData.value = response?.data?.data[0]?.courseResponse;
     } catch (error) {
@@ -78,7 +78,7 @@ export const useGlobalStore = defineStore("globalStore", () => {
   async function getBranchByOrg() {
     try {
       const response = await axios.get(
-        `https://golang.qspiders.com/backend/api/v1/branches/getAllBranches?organization=jspiders`
+        `https://golang.qspiders.com/backend/api/v1/branches/viewAll?organization=qspiders`
       );
       branches.value = response?.data.data[0]?.cities;
     } catch (error) {
