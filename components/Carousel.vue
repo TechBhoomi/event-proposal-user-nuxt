@@ -23,7 +23,7 @@ const URL = import.meta.env.VITE_BASE_URL;
 </script>
 
 <template>
-  <div class="carousel-container relative">
+  <div class="carousel-container relative mb-2">
     <VueCarousel v-bind="config">
       <template #addons>
         <Navigation />
