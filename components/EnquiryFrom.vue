@@ -1,7 +1,7 @@
 <template>
   <div class="p-4 mb-2">
     <section>
-      <Notivue v-slot="item" :position="toastPosition" :theme="materialTheme">
+      <Notivue v-slot="item" :theme="materialTheme">
         <Notification :item="item" />
       </Notivue>
     </section>
@@ -93,23 +93,15 @@ const handleSubmit = async () => {
     mobile: mobile.value,
     message: message.value,
   };
-  const toastPosition = ref("top-right");
   const response = await STORE.postEnquiry(apiBody);
   if ([200, 201, 202].includes(response.status)) {
-    // name.value = "";
-    // email.value = "";
-    // mobile.value = "";
-    // message.value = "";
-    push.success("Enquiry form submitted successfully!",{ timeout: 100 });
+    name.value = "";
+    email.value = "";
+    mobile.value = "";
+    message.value = "";
+    push.success("Enquiry form submitted successfully!", { timeout: 100 });
   } else {
     push.error("Something went wrong please try again!");
   }
-  // Handle form submission logic here
-  // console.log("Form submitted:", {
-  //   name: name.value,
-  //   email: email.value,
-  //   mobile: mobile.value,
-  //   message: message.value,
-  // });
 };
 </script>

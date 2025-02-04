@@ -1,11 +1,11 @@
 <template>
-  <div v-if="isBranchDetailsModalOpen">
+  <div v-if="isBranchDetailsModalOpen" @wheel.stop>
     <!-- Main modal -->
     <div
       id="select-modal"
       tabindex="-1"
       aria-hidden="true"
-      class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full shadow-lg backdrop-blur-sm bg-[#00000033]"
+      class="overflow-y-auto overflow-x-hidden  fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-0rem)] max-h-full shadow-lg backdrop-blur-sm bg-[#00000033]"
     >
       <div
         class="relative p-4 w-full max-w-7xl mx-auto max-h-full"
@@ -59,8 +59,7 @@
                 </p>
                 <ul class="space-y-4 mb-4">
                   <template
-                    v-for="(branch, index) in branchDetails?.courses[0]
-                      ?.branches"
+                    v-for="(branch, index) in branchDetails.branches"
                     :key="index"
                   >
                     <li
@@ -68,8 +67,8 @@
                       class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500"
                       :class="activeClass(index)"
                     >
-                      <h2 class="font-semibold text-sm md:text-base font-sans">
-                        {{ branch.branchName.toUpperCase() }}
+                      <h2 class="font-semibold text-sm md:text-base font-sans capitalize">
+                        {{ branch?.branchName }}
                       </h2>
                     </li>
                   </template>
@@ -94,18 +93,21 @@
                     <!-- Address -->
                     <tr>
                       <td
-                        class="pr-4 pb-2 text-start  font-bold whitespace-nowrap"
+                        class="pr-4 pb-2 text-start font-bold whitespace-nowrap"
                       >
                         Address:
                       </td>
                       <td class="pb-2 font-sans font-medium">
-                        {{ branchData?.street }}
+                        <div v-if="branchData?.street">
+                          {{ branchData?.street }}
+                        </div>
+                        <div v-else>--</div>
                       </td>
                     </tr>
                     <!-- Google Maps -->
                     <tr>
                       <td
-                        class="pr-4 pb-2 text-start  font-bold whitespace-nowrap"
+                        class="pr-4 pb-2 text-start font-bold whitespace-nowrap"
                       >
                         Google Maps:
                       </td>
@@ -163,11 +165,12 @@ watch(
 );
 const branchData = ref(null);
 const seeBranchData = (data, index) => {
+  console.log(data);
   branchData.value = data;
   activeIndex.value = index;
 };
 onMounted(() => {
-  branchData.value = branchDetails?.courses[0]?.branches[0];
+  // branchData.value = branchDetails?.courses[0]?.branches[0];
 });
 const activeIndex = ref(0);
 const activeClass = index => {
