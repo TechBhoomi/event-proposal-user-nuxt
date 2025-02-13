@@ -5,7 +5,7 @@
       id="select-modal"
       tabindex="-1"
       aria-hidden="true"
-      class="overflow-y-auto overflow-x-hidden  fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-0rem)] max-h-full shadow-lg backdrop-blur-sm bg-[#00000033]"
+      class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-0rem)] max-h-full shadow-lg backdrop-blur-sm bg-[#00000033]"
     >
       <div
         class="relative p-4 w-full max-w-7xl mx-auto max-h-full"
@@ -57,7 +57,7 @@
                 >
                   Select your desired location:
                 </p>
-                <ul class="space-y-4 mb-4">
+                <ul class="space-y-4 mb-4 h-[60vh] overflow-auto">
                   <template
                     v-for="(branch, index) in branchDetails.branches"
                     :key="index"
@@ -67,7 +67,9 @@
                       class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500"
                       :class="activeClass(index)"
                     >
-                      <h2 class="font-semibold text-sm md:text-base font-sans capitalize">
+                      <h2
+                        class="font-semibold text-sm md:text-base font-sans capitalize"
+                      >
                         {{ branch?.branchName }}
                       </h2>
                     </li>

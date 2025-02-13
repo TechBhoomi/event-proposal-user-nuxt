@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-gray-400">
+  <section>
     <!--!LOADING STATE-->
     <article
       v-if="isEventApiLoading && !apiError"
@@ -59,91 +59,30 @@
     <!--!IDLE STATE -->
 
     <template v-else>
-      <template
-        v-for="(component, index) in sortedElements"
-        :key="component.id"
-      >
-        <!--! NAVBAR -->
-        <div
-          v-if="component.name.toLowerCase() == 'navbar'"
-          class="sticky top-0 z-50"
-          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
-        >
-          <Navbar
-            :menuItems="component.details.map(item => item.data)"
-            :uuid="uniqueTemplateId"
-          />
-        </div>
-        <!--!CAROUSAL-->
-        <div
-          v-if="component.name?.toLowerCase() === 'carousel'"
-          :id="component.name?.toLowerCase().trim().replace(/ /g, '_')"
-          class="flex items-center justify-center"
-        >
-          <Carousel :images="component.details.map(item => item.data)" />
-        </div>
-        <!-- !COURSE / CURRICULUM -->
-        <div
-          v-if="component.name?.toLowerCase() === 'curriculum'"
-          :id="component.name?.toLowerCase().trim().replace(/ /g, '_')"
-          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
-        >
-          <Curiculum />
-        </div>
-        <!-- !GREETING -->
-        <div
-          v-if="component.name?.toLowerCase() === 'greeting'"
-          :id="component.name?.toLowerCase().trim().replace(/ /g, '_')"
-          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
-        >
-          <Greeting
-            :data="component.details.map(item => item.data)"
-            :userName="userName"
-          />
-        </div>
-        <!-- !PLACEMENT STATS -->
-        <div
-          v-if="component.name.toLowerCase() === 'placement statistics'"
-          :id="component.name.trim().replace(/ /g, '_')"
-          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
-        >
-          <PlacementStats :data="placementStats" />
-        </div>
-        <!-- !BRANCH DATA -->
-        <div
-          v-if="component.name.toLowerCase() === 'branches'"
-          :id="component.name?.toLowerCase().trim().replace(/ /g, '_')"
-          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
-        >
-          <Branches />
-        </div>
-        <!-- !PLACEMENT ACTIVITY-->
-        <div
-          v-if="component.name.toLowerCase() === 'placement activities'"
-          :id="component.name.toLowerCase().replace(/ /g, '_')"
-          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
-        >
-          <PlacementActivity
-            :images="component.details.map(item => item.data)"
-          />
-        </div>
-        <!-- !ENQUIRY FORM -->
-        <div
-          v-if="component.name?.toLowerCase() === 'enquiry form'"
-          :id="component.name.toLowerCase().trim().replace(/ /g, '_')"
-          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
-        >
-          <EnquiryFrom />
-        </div>
-        <!-- !FOOTER -->
-        <div
-          :class="index % 2 == 0 && index !== 0 ? 'bg-gray-50' : 'bg-gray-100'"
-          v-if="component.name.toLowerCase() === 'footer'"
-          :id="component.name.trim().replace(/ /g, '_')"
-        >
-          <Footer />
-        </div>
-      </template>
+      <div id="/" class="sticky top-0 z-50">
+        <Navbar :menuItems="menuItems" />
+      </div>
+      <div class="bg-gray-50">
+        <Carousel :images="carouselData" />
+      </div>
+      <div class="bg-gray-100">
+        <Greeting :userName="userName" />
+      </div>
+      <div id="courses" class="bg-gray-50">
+        <Curiculum />
+      </div>
+      <div id="branches" class="bg-gray-100">
+        <Branches />
+      </div>
+      <div id="placement_stats" class="bg-gray-50">
+        <PlacementStats :data="placementStats" />
+      </div>
+      <div id="enquiry_form" class="bg-gray-100">
+        <EnquiryFrom />
+      </div>
+      <div id="placement_activities" class="bg-gray-50">
+        <PlacementActivity :images="placementImages" />
+      </div>
     </template>
   </section>
 </template>
@@ -160,6 +99,8 @@ const {
   apiError,
   placementStats,
   userName,
+  carouselData,
+  placementImages,
 } = storeToRefs(STORE);
 
 const sortedElements = computed(() => {
@@ -183,8 +124,6 @@ const sortedElements = computed(() => {
   );
 });
 
-// console.log(sortedElements.value, "sortedElements");
-
 const route = useRoute();
 const router = useRouter();
 let uniqueTemplateId = ref(null);
@@ -194,6 +133,8 @@ onBeforeMount(async () => {
   router.push(uuid);
   await STORE.getEventData(uuid);
   await STORE.getPlacementStats();
+  await STORE.getCarouselImages();
+  await STORE.getPlacementImages();
 });
 
 definePageMeta({
@@ -203,6 +144,13 @@ definePageMeta({
 useHead({
   title: "Qspiders",
 });
+const menuItems = [
+  { name: "Courses", path: "courses" },
+  { name: "Branches", path: "branches" },
+  { name: "Placement Stats", path: "placement_stats" },
+  { name: "Enquiry Form", path: "enquiry_form" },
+  { name: "Placement Activities", path: "placement_activities" },
+];
 </script>
 
 <style scoped></style>

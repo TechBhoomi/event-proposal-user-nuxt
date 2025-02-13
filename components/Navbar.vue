@@ -12,11 +12,7 @@
             QSpiders
           </a>
         </div>
-        <!-- Brand -->
-        <!-- <div class="flex items-center">
-          <a href="#" class="lg:text-2xl text-base font-bold lg:hidden">Menu</a>
-        </div> -->
-        <!-- Hamburger Menu -->
+
         <div class="flex lg:hidden">
           <button @click="toggleMenu">
             <svg
@@ -45,7 +41,6 @@
           </button>
         </div>
 
-        <!-- Desktop Menu -->
         <div class="hidden lg:flex space-x-4 gap-4">
           <!-- <a
             v-for="(menu, index) in menuItems"
@@ -61,14 +56,10 @@
           <a
             v-for="(menu, index) in menuItems"
             :key="index"
-            :href="`${
-              menu == 'home'
-                ? uuid
-                : '#' + menu?.trim()?.replace(/ /g, '_')?.toLowerCase()
-            }`"
+            :href="`#${menu.path}`"
             class="text-sm flex items-center justify-center w-full gap-4 group relative whitespace-nowrap font-sans font-semibold text-white"
           >
-            <span>{{ menu }}</span>
+            <span>{{ menu.name }}</span>
             <span
               class="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-white group-hover:w-3/6"
             ></span>
@@ -80,7 +71,6 @@
       </div>
     </div>
 
-    <!-- Mobile Menu -->
     <div
       v-if="isMenuOpen"
       class="lg:hidden bg-[#EEEEEE] absolute right-0 w-full z-40"
@@ -89,11 +79,7 @@
         <a
           v-for="(menu, index) in menuItems"
           :key="index"
-          :href="`${
-            menu == 'home'
-              ? uuid
-              : '#' + menu.toLowerCase().trim().replace(/ /g, '_')
-          }`"
+          :href="`${'#' + menu.toLowerCase().trim().replace(/ /g, '_')}`"
           class="block hover:bg-blue-500 px-3 py-2 rounded-md text-base font-semibold capitalize"
           >{{ menu }}</a
         >
@@ -105,10 +91,8 @@
 <script setup>
 import { ref } from "vue";
 
-// Reactive state to track menu visibility
 const isMenuOpen = ref(false);
 
-// Prop to accept menu items
 defineProps({
   menuItems: {
     type: Array,
@@ -120,7 +104,6 @@ defineProps({
   },
 });
 
-// Function to toggle the mobile menu visibility
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };

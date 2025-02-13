@@ -72,7 +72,9 @@
                       :key="sub"
                       class="topics text-base font-medium cursor-default bg-[#EFEFEF] mb-1 rounded-md"
                     >
-                      <div class="flex items-center gap-2 bg-[#FFE6C9] p-1">
+                      <div
+                        class="flex items-center gap-2 bg-[#FFE6C9] p-1 rounded-md"
+                      >
                         <span>
                           <svg
                             class="h-3 w-3"
