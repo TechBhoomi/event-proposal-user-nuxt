@@ -80,7 +80,7 @@
           v-for="(menu, index) in menuItems"
           :key="index"
           :href="`#${menu.path}`"
-          class="block hover:bg-blue-500 px-3 py-2 rounded-md text-base font-semibold capitalize"
+          class="block hover:bg-[#f5861f] px-3 py-2 rounded-md text-base font-semibold capitalize"
           >{{ menu.name }}</a
         >
       </div>
