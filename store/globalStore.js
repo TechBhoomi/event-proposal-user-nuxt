@@ -6,19 +6,19 @@ export const useGlobalStore = defineStore("globalStore", () => {
   const URL = import.meta.env.VITE_BASE_URL;
   const eventData = ref([]);
   const isEventApiLoading = ref(false);
-  // course api
   const courseData = ref(null);
   const isCouseDataLoading = ref(false);
   const hasCourseApiError = ref(false);
-  // get course by id
   const courseByID = ref([]);
   const getCourseByIdLoading = ref(false);
   const hasCourseByIdError = ref(false);
-  // placement stats
+
   const placementStats = ref([]);
   const isPlacementDataLoading = ref(false);
   const hasPlacementStatsError = ref(false);
   const userName = ref("");
+  const carouselData = ref([]);
+  const placementImages = ref([]);
   // branch data
   const branches = ref("");
   // get event
@@ -85,7 +85,7 @@ export const useGlobalStore = defineStore("globalStore", () => {
       console.log(error);
     }
   }
-  // fucntion to post enquiry form
+  // function to post enquiry form
   async function postEnquiry(apiBody) {
     try {
       const response = await axios.post(
@@ -105,6 +105,22 @@ export const useGlobalStore = defineStore("globalStore", () => {
       );
       placementStats.value = response.data;
       console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function getCarouselImages() {
+    try {
+      const response = await axios.get(`${URL}/api/v1/get_image?id=1`);
+      carouselData.value = response.data.data[0].images;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function getPlacementImages() {
+    try {
+      const response = await axios.get(`${URL}/api/v1/get_image?id=2`);
+      placementImages.value = response.data.data[0].images;
     } catch (error) {
       console.log(error);
     }
@@ -129,5 +145,9 @@ export const useGlobalStore = defineStore("globalStore", () => {
     getPlacementStats,
     placementStats,
     userName,
+    getCarouselImages,
+    carouselData,
+    getPlacementImages,
+    placementImages,
   };
 });
