@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="bg-[#f5861f] text-[#2F3645] border-b-[0.1rem] border-b-[#2f36454f] w-full p-2"
+    class="bg-[#f5861f] text-[#2F3645] border-b-[0.1rem] border-b-[#2f36454f] w-full p-2 z-[999]"
   >
     <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between lg:h-10 h-10 w-full">
@@ -73,15 +73,15 @@
 
     <div
       v-if="isMenuOpen"
-      class="lg:hidden bg-[#EEEEEE] absolute right-0 w-full z-40"
+      class="lg:hidden bg-[#EEEEEE] absolute right-0 w-full z-50"
     >
       <div class="px-2 pt-2 pb-3 space-y-1">
         <a
           v-for="(menu, index) in menuItems"
           :key="index"
-          :href="`${'#' + menu.toLowerCase().trim().replace(/ /g, '_')}`"
+          :href="`#${menu.path}`"
           class="block hover:bg-blue-500 px-3 py-2 rounded-md text-base font-semibold capitalize"
-          >{{ menu }}</a
+          >{{ menu.name }}</a
         >
       </div>
     </div>
