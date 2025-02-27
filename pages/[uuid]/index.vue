@@ -36,22 +36,16 @@
     </article>
     <!--!ERROR STATE-->
     <section v-else-if="apiError && !isEventApiLoading">
-      <section
-        class="flex items-center h-full p-16 dark:bg-gray-50 dark:text-gray-800"
-      >
-        <div
-          class="container flex flex-col items-center justify-center px-5 mx-auto my-8"
-        >
+      <section class="flex items-center h-full p-16 dark:bg-gray-50 dark:text-gray-800">
+        <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
           <div class="max-w-md text-center">
             <h2 class="mb-8 font-extrabold text-9xl dark:text-gray-400">
               <span class="sr-only">Error</span>404
             </h2>
-            <p class="text-2xl font-semibold md:text-3xl">
-              Sorry, we couldn't find the the template you're looking for.
-            </p>
-            <p class="mt-4 mb-8 dark:text-gray-600">
-              Please Enter the valid Template URL!
-            </p>
+            <p
+              class="text-2xl font-semibold md:text-3xl"
+            >Sorry, we couldn't find the the template you're looking for.</p>
+            <p class="mt-4 mb-8 dark:text-gray-600">Please Enter the valid Template URL!</p>
           </div>
         </div>
       </section>
@@ -74,14 +68,17 @@
       <div id="branches" class="bg-gray-100">
         <Branches />
       </div>
-      <div id="placement_stats" class="bg-gray-50">
+      <!-- <div id="placement_stats" class="bg-gray-50">
         <PlacementStats :data="placementStats" />
-      </div>
-      <div id="enquiry_form" class="bg-gray-100">
+      </div>-->
+      <!-- <div id="enquiry_form" class="bg-gray-100">
         <EnquiryFrom />
-      </div>
+      </div>-->
       <div id="placement_activities" class="bg-gray-50">
         <PlacementActivity :images="placementImages" />
+      </div>
+      <div id="hiring_partners" class="bg-gray-50">
+        <HiringPartners />
       </div>
     </template>
   </section>
@@ -100,7 +97,7 @@ const {
   placementStats,
   userName,
   carouselData,
-  placementImages,
+  placementImages
 } = storeToRefs(STORE);
 
 const sortedElements = computed(() => {
@@ -115,7 +112,7 @@ const sortedElements = computed(() => {
         "Body-Center",
         "Body-Bottom",
         "Bottom",
-        "Footer",
+        "Footer"
       ];
       return (
         positionOrder.indexOf(a.position) - positionOrder.indexOf(b.position)
@@ -138,18 +135,21 @@ onBeforeMount(async () => {
 });
 
 definePageMeta({
-  title: "Qspiders",
+  title: "Qspiders"
 });
 
 useHead({
-  title: "Qspiders",
+  title: "Qspiders"
 });
 const menuItems = [
   { name: "Courses", path: "courses" },
+   { name: "Other Courses", path: "https://qspiders.com/", external: true },
   { name: "Branches", path: "branches" },
+  { name: "Other Branches", path: "https://qspiders.com/", external: true },
   { name: "Placement Stats", path: "placement_stats" },
-  { name: "Enquiry Form", path: "enquiry_form" },
+  // { name: "Enquiry Form", path: "enquiry_form" },
   { name: "Placement Activities", path: "placement_activities" },
+  { name: "Hiring Partners", path: "hiring_partners" }
 ];
 </script>
 
