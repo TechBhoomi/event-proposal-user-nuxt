@@ -4,13 +4,11 @@
   >
     <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between lg:h-10 h-10 w-full">
-        <div class="">
+        <div class>
           <a
             href="#"
             class="sm:text-base lg:text-2xl font-bold lg:pl-4 pl-2 text-white font-lexend"
-          >
-            QSpiders
-          </a>
+          >QSpiders</a>
         </div>
 
         <div class="flex lg:hidden">
@@ -52,8 +50,25 @@
             }`"
             class="px-3 text-sm capitalize whitespace-nowrap font-sans font-semibold text-white"
             >{{ menu }}</a
-          > -->
+          >-->
           <a
+            v-for="(menu, index) in menuItems"
+            :key="index"
+            :href="menu.external ? menu.path : `#${menu.path}`"
+            :target="menu.external ? '_blank' : '_self'"
+            :rel="menu.external ? 'noopener noreferrer' : ''"
+            class="text-sm flex items-center justify-center w-full gap-4 group relative whitespace-nowrap font-sans font-semibold text-white"
+          >
+            <span>{{ menu.name }}</span>
+            <span
+              class="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-white group-hover:w-3/6"
+            ></span>
+            <span
+              class="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-white group-hover:w-3/6"
+            ></span>
+          </a>
+
+          <!-- <a
             v-for="(menu, index) in menuItems"
             :key="index"
             :href="`#${menu.path}`"
@@ -66,23 +81,28 @@
             <span
               class="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-white group-hover:w-3/6"
             ></span>
-          </a>
+          </a>-->
         </div>
       </div>
     </div>
 
-    <div
-      v-if="isMenuOpen"
-      class="lg:hidden bg-[#EEEEEE] absolute right-0 w-full z-50"
-    >
+    <div v-if="isMenuOpen" class="lg:hidden bg-[#EEEEEE] absolute right-0 w-full z-50">
       <div class="px-2 pt-2 pb-3 space-y-1">
-        <a
+        <!-- <a
           v-for="(menu, index) in menuItems"
           :key="index"
           :href="`#${menu.path}`"
-          class="block hover:bg-[#f5861f] px-3 py-2 rounded-md text-base font-semibold capitalize"
+          class="block hover:bg-blue-500 px-3 py-2 rounded-md text-base font-semibold capitalize"
           >{{ menu.name }}</a
-        >
+        >-->
+        <a
+          v-for="(menu, index) in menuItems"
+          :key="index"
+          :href="menu.external ? menu.path : `#${menu.path}`"
+          :target="menu.external ? '_blank' : '_self'"
+          :rel="menu.external ? 'noopener noreferrer' : ''"
+          class="block hover:bg-blue-500 px-3 py-2 rounded-md text-base font-semibold capitalize"
+        >{{ menu.name }}</a>
       </div>
     </div>
   </nav>
@@ -96,12 +116,12 @@ const isMenuOpen = ref(false);
 defineProps({
   menuItems: {
     type: Array,
-    default: () => [],
+    default: () => []
   },
   uuid: {
     type: [String, Number],
-    required: true,
-  },
+    required: true
+  }
 });
 
 const toggleMenu = () => {
