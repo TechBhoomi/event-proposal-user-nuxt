@@ -57,6 +57,50 @@ export const useGlobalStore = defineStore("globalStore", () => {
       isCouseDataLoading.value = false;
     }
   }
+
+  // async function getEventData(uuid) {
+  //   try {
+  //     let url = `${URL}/api/v1/get_events`;
+  //     if (uuid) {
+  //       url += `?uuid=${uuid}`;
+  //     }
+  //     isEventApiLoading.value = true;
+  //     apiError.value = false;
+  //     eventData.value = [];
+  
+  //     const response = await axios.get(url);
+  //     eventData.value = response.data.data;
+  //     userName.value = response.data?.data[0]?.name;
+  
+  //     if (response.data.data.length < 1) {
+  //       apiError.value = true;
+  //     } else {
+  //       const degreeId = response.data.data[0]?.degree?.id;
+  //       if (degreeId) {
+  //         await getCourse(degreeId); // Fetch courses based on degree ID
+  //       }
+  //     }
+  //   } catch (error) {
+  //     apiError.value = "Something went wrong!";
+  //     throw new Error(error.response?.message || "Unknown error");
+  //   } finally {
+  //     isEventApiLoading.value = false;
+  //   }
+  // }
+  
+  // async function getCourse(degree_id) {
+  //   try {
+  //     const url = `https://golang.qspiders.com/backend/api/v1/categories/getAllCategories?organization=qspiders&degree_id=${degree_id}`;
+  //     const response = await axios.get(url);
+  //     courseData.value = response?.data?.data[0]?.courseResponse || [];
+  //   } catch (error) {
+  //     hasCourseApiError.value = error.response || "Something went wrong!";
+  //   } finally {
+  //     isCouseDataLoading.value = false;
+  //   }
+  // }
+
+  
   // get course by id
   async function getCourseById(course_Id) {
     let URL = `https://golang.qspiders.com/backend/api/v1/courses/getbyid`;
