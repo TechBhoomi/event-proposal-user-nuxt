@@ -146,7 +146,7 @@ const menuItems = [
    { name: "Other Courses", path: "https://qspiders.com/", external: true },
   { name: "Branches", path: "branches" },
   { name: "Other Branches", path: "https://qspiders.com/", external: true },
-  { name: "Placement Stats", path: "placement_stats" },
+  { name: "Placement Stats", path: "https://qspiders.com/placements", external: true  },
   // { name: "Enquiry Form", path: "enquiry_form" },
   { name: "Placement Activities", path: "placement_activities" },
   { name: "Hiring Partners", path: "hiring_partners" }
