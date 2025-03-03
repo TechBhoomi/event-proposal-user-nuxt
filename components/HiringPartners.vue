@@ -61,7 +61,7 @@ const partners = ref([
   font-weight: bold;
   font-size: 1rem;
   padding: 10px 20px;
-  border-radius: 20px;
+  border-radius: 10px;
   border: 2px solid #ff7f2a;
   background-color: #ffcc99;
   color: black;
